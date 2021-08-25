@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DanyloSoft.PetFinder.Core", "DanyloSoft.PetFinder.Core\DanyloSoft.PetFinder.Core.csproj", "{7FE739EE-A52D-407C-88E8-00BAFEBCB270}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DanyloSoft.PetFinder.Domain", "DanyloSoft.PetFinder.Domain\DanyloSoft.PetFinder.Domain.csproj", "{081900D5-0354-4C4B-A7E6-4807A2815F15}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{FB507813-DFBA-4533-92B6-F89E7DE97B65}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{03CEC4EF-2586-48EC-9D8D-028BC193FE44}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{0751192A-E160-47D6-9627-90E8D8247A2B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DanyloSoft.PetFinder.Infrastructure.Database", "DanyloSoft.PetFinder.Infrastructure.Database\DanyloSoft.PetFinder.Infrastructure.Database.csproj", "{ADF2669C-E5C4-4CBB-AB8D-45FB1400E674}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DanyloSoft.PetFinder.UI", "DanyloSoft.PetFinder.UI\DanyloSoft.PetFinder.UI.csproj", "{5A1C5163-EDD3-4CD3-B084-1BD1779B0A0B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7FE739EE-A52D-407C-88E8-00BAFEBCB270}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FE739EE-A52D-407C-88E8-00BAFEBCB270}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FE739EE-A52D-407C-88E8-00BAFEBCB270}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FE739EE-A52D-407C-88E8-00BAFEBCB270}.Release|Any CPU.Build.0 = Release|Any CPU
+		{081900D5-0354-4C4B-A7E6-4807A2815F15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{081900D5-0354-4C4B-A7E6-4807A2815F15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{081900D5-0354-4C4B-A7E6-4807A2815F15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{081900D5-0354-4C4B-A7E6-4807A2815F15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADF2669C-E5C4-4CBB-AB8D-45FB1400E674}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADF2669C-E5C4-4CBB-AB8D-45FB1400E674}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADF2669C-E5C4-4CBB-AB8D-45FB1400E674}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADF2669C-E5C4-4CBB-AB8D-45FB1400E674}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A1C5163-EDD3-4CD3-B084-1BD1779B0A0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A1C5163-EDD3-4CD3-B084-1BD1779B0A0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A1C5163-EDD3-4CD3-B084-1BD1779B0A0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A1C5163-EDD3-4CD3-B084-1BD1779B0A0B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7FE739EE-A52D-407C-88E8-00BAFEBCB270} = {FB507813-DFBA-4533-92B6-F89E7DE97B65}
+		{081900D5-0354-4C4B-A7E6-4807A2815F15} = {FB507813-DFBA-4533-92B6-F89E7DE97B65}
+		{ADF2669C-E5C4-4CBB-AB8D-45FB1400E674} = {03CEC4EF-2586-48EC-9D8D-028BC193FE44}
+		{5A1C5163-EDD3-4CD3-B084-1BD1779B0A0B} = {0751192A-E160-47D6-9627-90E8D8247A2B}
+	EndGlobalSection
+EndGlobal

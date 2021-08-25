@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\DanyloSoft.PetFinder.Core\DanyloSoft.PetFinder.Core.csproj" />
+      <ProjectReference Include="..\DanyloSoft.PetFinder.Domain\DanyloSoft.PetFinder.Domain.csproj" />
+    </ItemGroup>
+
+</Project>
