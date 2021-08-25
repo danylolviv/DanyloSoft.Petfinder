@@ -5,6 +5,7 @@ namespace DanyloSoft.PetFinder.Core.IServices
 {
     public interface IPetService
     {
+
         Pet CreatePet(Pet newPet);
         ///    <summary>
         ///    This should be ideally taken out into a different filtering class.
