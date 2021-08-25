@@ -1,13 +1,18 @@
 using System;
+using DanyloSoft.PetFinder.Core.IServices;
 
 namespace DanyloSoft.PetFinder.UI
 {
-    public class MainMenu
+    public class MainMenu : IMenu
     {
         private MenuImplementation mi = new MenuImplementation();
-        public MainMenu()
+        private IPetService _petService;
+        private IPetTypeService _petTypeService;
+        
+        public MainMenu(IPetService petServ, IPetTypeService petTypeServ)
         {
-            
+            _petService = petServ;
+            _petTypeService = petTypeServ;
         }
         public void Start()
         {
