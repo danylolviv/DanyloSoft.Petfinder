@@ -6,14 +6,26 @@ namespace DanyloSoft.PetFinder.Infrastructure.Database.Repositories
 {
     public class PetTypeRepository : IPetTypeRepository
     {
+        public PetTypeRepository()
+        {
+            //Adding Items to the list
+            CreatePetType(new PetType {Name = "Dog"});
+            CreatePetType(new PetType {Name = "Cat"});
+            CreatePetType(new PetType {Name = "Hamster"});
+            CreatePetType(new PetType {Name = "Guinea Pig"});
+        }
+        private List<PetType> _listOfPetTypes = new List<PetType>();
+        private int _runningId = 1;
         public List<PetType> GetListPetTypes()
         {
-            throw new System.NotImplementedException();
+            return _listOfPetTypes;
         }
 
         public PetType CreatePetType(PetType newPetType)
         {
-            throw new System.NotImplementedException();
+            newPetType.Id = _runningId++;
+            _listOfPetTypes.Add(newPetType);
+            return newPetType;
         }
 
         public PetType RemovePetType(PetType petTypeToRemove)

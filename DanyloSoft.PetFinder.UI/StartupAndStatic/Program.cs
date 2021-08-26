@@ -12,6 +12,7 @@ namespace DanyloSoft.PetFinder.UI
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("hello");
             var serviceCollection = new ServiceCollection();
             
             serviceCollection.AddScoped<IPetRepository, PetRepository>();
@@ -19,6 +20,8 @@ namespace DanyloSoft.PetFinder.UI
             serviceCollection.AddScoped<IPetTypeRepository, PetTypeRepository>();
             serviceCollection.AddScoped<IPetTypeService, PetTypeService>();
             serviceCollection.AddScoped<IMenu, MainMenu>();
+
+            IPetRepository repo = new PetRepository();
 
             
             var serviceProvider = serviceCollection.BuildServiceProvider();

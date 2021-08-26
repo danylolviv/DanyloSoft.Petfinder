@@ -11,5 +11,12 @@ namespace DanyloSoft.PetFinder.Core.Models
         public DateTime SellOutDate { get; set; }
         public string Color { get; set; }
         public double Price { get; set; }
+
+        public override string ToString()
+        {
+            string outString =
+                $"...:: {Id} ::...{Name} {PetType.Name} Birth Date: {Birthday.Date.ToString("M/dd/yyyy")} Sell Date {SellOutDate.Date.ToString("M/dd/yyyy")} Color: {Color} Price: {Price}";
+            return outString;
+        }
     }
 }

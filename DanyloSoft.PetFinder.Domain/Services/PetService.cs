@@ -16,12 +16,12 @@ namespace DanyloSoft.PetFinder.Domain.Services
         
         public Pet CreatePet(Pet newPet)
         {
-            throw new System.NotImplementedException();
+           return _repo.CreatePet(newPet);
         }
 
         public List<Pet> GetPets()
         {
-            throw new System.NotImplementedException();
+            return _repo.GetPets();
         }
 
         public List<Pet> Get5Cheapest()
@@ -41,7 +41,7 @@ namespace DanyloSoft.PetFinder.Domain.Services
 
         public void DeletePet(Pet petToDelete)
         {
-            throw new System.NotImplementedException();
+            _repo.DeletePet(petToDelete);
         }
     }
 }

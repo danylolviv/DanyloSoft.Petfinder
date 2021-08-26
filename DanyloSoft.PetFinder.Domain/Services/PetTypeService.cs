@@ -16,7 +16,7 @@ namespace DanyloSoft.PetFinder.Domain.Services
         }
         public List<PetType> GetListPetTypes()
         {
-            throw new System.NotImplementedException();
+            return _repo.GetListPetTypes();
         }
 
         public PetType CreatePetType(PetType newPetType)

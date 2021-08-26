@@ -5,7 +5,7 @@ namespace DanyloSoft.PetFinder.UI
 {
     public class MainMenu : IMenu
     {
-        private MenuImplementation mi = new MenuImplementation();
+        private MenuImplementation mi;
         private IPetService _petService;
         private IPetTypeService _petTypeService;
         
@@ -13,6 +13,7 @@ namespace DanyloSoft.PetFinder.UI
         {
             _petService = petServ;
             _petTypeService = petTypeServ;
+            mi = new MenuImplementation(_petService, _petTypeService);
         }
         public void Start()
         {

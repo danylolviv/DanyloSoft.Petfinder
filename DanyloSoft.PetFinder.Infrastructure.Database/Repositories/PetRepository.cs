@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using DanyloSoft.PetFinder.Core.Models;
 using DanyloSoft.PetFinder.Domain.IRepositories;
@@ -6,14 +7,24 @@ namespace DanyloSoft.PetFinder.Infrastructure.Database.Repositories
 {
     public class PetRepository : IPetRepository
     {
+        private static List<Pet> _listPets = new List<Pet>();
+        private static int _runningId = 1;
+
+        public PetRepository()
+        {
+            PopulateRepo();
+        }
+        
         public Pet CreatePet(Pet newPet)
         {
-            throw new System.NotImplementedException();
+            newPet.Id = _runningId++;
+            _listPets.Add(newPet);
+            return newPet;
         }
 
         public List<Pet> GetPets()
         {
-            throw new System.NotImplementedException();
+            return _listPets;
         }
 
         public List<Pet> Get5Cheapest()
@@ -33,7 +44,30 @@ namespace DanyloSoft.PetFinder.Infrastructure.Database.Repositories
 
         public void DeletePet(Pet petToDelete)
         {
-            throw new System.NotImplementedException();
+            _listPets.Remove(petToDelete);
+        }
+        
+        //Filling fake db
+        private void PopulateRepo()
+        {
+            CreatePet(new Pet
+            {
+                Birthday = DateTime.Now, Color = "Brown", Name = "Zoozie",
+                PetType = new PetType {Id = 1, Name = "Dog"},
+                SellOutDate = DateTime.Today, Price = 39.90
+            });
+            CreatePet(new Pet
+            {
+                Birthday = DateTime.Now, Color = "Pink", Name = "Many",
+                PetType = new PetType {Id = 2, Name = "Cat"},
+                SellOutDate = DateTime.Today, Price = 39.90
+            });
+            CreatePet(new Pet
+            {
+                Birthday = DateTime.Now, Color = "Orange", Name = "Bob",
+                PetType = new PetType {Id = 2, Name = "Cat"},
+                SellOutDate = DateTime.Today, Price = 39.90
+            });
         }
     }
 }
