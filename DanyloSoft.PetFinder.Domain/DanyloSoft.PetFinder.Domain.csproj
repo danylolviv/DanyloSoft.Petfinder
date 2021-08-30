@@ -8,4 +8,8 @@
       <ProjectReference Include="..\DanyloSoft.PetFinder.Core\DanyloSoft.PetFinder.Core.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Filters" />
+    </ItemGroup>
+
 </Project>

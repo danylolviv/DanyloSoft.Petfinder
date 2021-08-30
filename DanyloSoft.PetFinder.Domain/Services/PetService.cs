@@ -34,9 +34,9 @@ namespace DanyloSoft.PetFinder.Domain.Services
             throw new System.NotImplementedException();
         }
 
-        public Pet UpdatePet(Pet oldPet)
+        public Pet UpdatePet(Pet newPet)
         {
-            throw new System.NotImplementedException();
+            return _repo.UpdatePet(newPet);
         }
 
         public void DeletePet(Pet petToDelete)

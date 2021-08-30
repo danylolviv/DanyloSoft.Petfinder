@@ -69,6 +69,8 @@ namespace DanyloSoft.PetFinder.UI
             Pt(StringConstants.EditPet);
             Pt(StringConstants.DeletePet);
             Pt(StringConstants.SearchPet);
+            Pt("");
+            Pt(StringConstants.AppExit);
         }
 
         private void WelcomeGreeting()

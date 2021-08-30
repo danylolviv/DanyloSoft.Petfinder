@@ -10,6 +10,7 @@ namespace DanyloSoft.PetFinder.UI
     {
         private IPetService _petService;
         private IPetTypeService _petTypeService;
+        private DateTime dateToCheckTheOkStatment = new DateTime(1237, 12, 12);
         public MenuImplementation(IPetService petServ, IPetTypeService petTypeServ)
         {
             _petService = petServ;
@@ -101,7 +102,6 @@ namespace DanyloSoft.PetFinder.UI
             
             Pt(StringConstants.ExitMainMenuText);
             int parsedNum;
-            
             while (int.TryParse(Console.ReadLine(), out parsedNum))
             {
                 if (parsedNum == 0)
@@ -114,6 +114,91 @@ namespace DanyloSoft.PetFinder.UI
         public void UpdatePet()
         {
             Pt(StringConstants.EditPetsGreeting);
+            foreach (var pet in _petService.GetPets())
+            {
+                Pt(pet.ToString());
+                Pt("");
+            }
+            Pt(StringConstants.EditPetsGreeting);
+            int chosenId;
+            while (int.TryParse(Read(StringConstants.ProvideId),out chosenId))
+            {
+                foreach (var petToUpdate in _petService.GetPets())
+                {
+                    if (chosenId == petToUpdate.Id)
+                    {
+                        Pt(StringConstants.ConfirmUpdate);
+                        Pt(petToUpdate.ToString());
+                        if (int.Parse(Console.ReadLine()) == 1)
+                        {
+                            Pet updatedPet = UpdateProcess(petToUpdate);
+                            Pt(StringConstants.ConfirmNewPet);
+                            Pt(updatedPet.ToString());
+                            if (int.Parse(Console.ReadLine()) == 1)
+                            {
+                                _petService.UpdatePet(updatedPet);
+                                Pt(StringConstants.SuccessfulUpdatedPet);
+                            }
+                        }
+                        break;
+                    }
+                }
+                Pt(StringConstants.UpdateAnotherOrQuit);
+                if (int.Parse(Console.ReadLine()) == 1)
+                {
+                    UpdatePet();
+                }
+                break;
+            }
+            
+        }
+
+        private Pet UpdateProcess(Pet petToUpdate)
+        {
+            Pt(StringConstants.UpdateProcessExplained);
+            Press1ToContinue();
+            
+            Pt($"Pet name: {petToUpdate.Name}");
+            string newName = Console.ReadLine();
+            if (newName.ToLower().Equals("ok"))  newName = petToUpdate.Name; 
+            
+            Pt($"Pet type: {petToUpdate.PetType.ToString()}");
+            PetType newPetType = GetPetType(_petTypeService) ?? petToUpdate.PetType;
+            
+            Pt($"Pet birthdate: {petToUpdate.Birthday}");
+            DateTime newBirthDate = GenerateDate(Console.ReadLine());
+            if (newBirthDate == dateToCheckTheOkStatment) newBirthDate = petToUpdate.Birthday;
+            
+            Pt($"Pet sell date: {petToUpdate.SellOutDate}");
+            DateTime newSellDate = GenerateDate(Console.ReadLine()) ;
+            if (newSellDate == dateToCheckTheOkStatment) newSellDate = petToUpdate.SellOutDate;
+            
+            Pt($"Pet color: {petToUpdate.Color}");
+            string newColor = Console.ReadLine();
+            if (newColor.ToLower().Equals("ok"))  newColor = petToUpdate.Color;
+
+            Pt($"Pet price: {petToUpdate.Price}");
+            double newPrice;
+            bool priceTry = double.TryParse(Console.ReadLine(), out newPrice);
+            if (!priceTry) newPrice = petToUpdate.Price;
+
+            Pet newPet = new Pet
+            {
+                Name = newName,
+                Birthday = newBirthDate,
+                Color = newColor,
+                SellOutDate = newSellDate,
+                PetType = newPetType,
+                Price = newPrice,
+                Id = petToUpdate.Id
+            };
+            return newPet;
+        }
+
+        private string Read(string message)
+        {
+            Pt(message);
+            return Console.ReadLine();
         }
 
         public void DeletePet()
@@ -212,6 +297,11 @@ namespace DanyloSoft.PetFinder.UI
                             return outputDate;
                         }
                     }
+                }
+
+                if (input.Contains("ok"))
+                {
+                    return dateToCheckTheOkStatment;
                 }
                 processManager = 1;
             }

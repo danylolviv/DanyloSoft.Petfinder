@@ -9,7 +9,7 @@ namespace DanyloSoft.PetFinder.UI
         
         public static readonly string CreatePetMenuText = "...::Type 1::... To create new pet";
         public static readonly string ShowPetsMenuText = "...::Type 2::... To see available pets";
-        public static readonly string EditPet = "...::Type 3::... To edit selected video from the list";
+        public static readonly string EditPet = "...::Type 3::... To edit selected pet from the list";
         public static readonly string DeletePet = "...::Type 4::... To delete a pet from the system";
         public static readonly string SearchPet = "...::Type 5::... To search for pet";
         
@@ -26,7 +26,8 @@ namespace DanyloSoft.PetFinder.UI
 
         public static string PresToContinue = "To continue press ...:: 1 ::...";
         
-        
+        public static string AppExit =  "...::Type 0::... Exit";
+       
         
         
         
@@ -81,6 +82,17 @@ namespace DanyloSoft.PetFinder.UI
 
         public static string DeleteAnotherOrQuit = "Press ..: 1 :.. to delete another pet or press ..: 0 :.. to exit to MainMenu";
         public static string NoMatchesWereFound = "No pets with this Id were found";
+        public static string ProvideId = "Please provide an id.";
+
+        public static string ConfirmUpdate =
+            "You chose following pet to update, press ..: 1 :.. to confirm, or ..: 0 :. to cancel.";
+
+        public static string UpdateProcessExplained = "We will go through each property of the pet, insert new property or type ..: ok :.. to proceed with the old one";
+        public static string UpdateAnotherOrQuit = "Press ..: 1 :.. to update another pet or press ..: 0 :.. to exit to MainMenu";
+        public static string ConfirmNewPet = "Your updated pet looks as follows: Press ..: 1 :.. to save or ..: 0 :.. to cancel";
+
+        public static string SuccessfulUpdatedPet =
+            "Pet was successfully updated, congrats";
 
         public static string CurrentPetCreated(Pet pet)
         {

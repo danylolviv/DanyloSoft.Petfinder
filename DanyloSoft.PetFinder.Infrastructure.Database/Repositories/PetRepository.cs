@@ -37,14 +37,37 @@ namespace DanyloSoft.PetFinder.Infrastructure.Database.Repositories
             throw new System.NotImplementedException();
         }
 
-        public Pet UpdatePet(Pet oldPet)
+        public Pet UpdatePet(Pet newPet)
         {
-            throw new System.NotImplementedException();
+            Pet petToUpdate = FindById(newPet.Id);
+            if (petToUpdate != null)
+            {
+                petToUpdate.Name = newPet.Name;
+                petToUpdate.Birthday = newPet.Birthday;
+                petToUpdate.SellOutDate = newPet.SellOutDate;
+                petToUpdate.Color = newPet.Color;
+                petToUpdate.Price = newPet.Price;
+                petToUpdate.PetType = newPet.PetType;
+                return petToUpdate;
+            }
+            return petToUpdate;
         }
 
         public void DeletePet(Pet petToDelete)
         {
             _listPets.Remove(petToDelete);
+        }
+        
+        public Pet FindById(int id)
+        {
+            foreach (var video in _listPets)
+            {
+                if (video.Id == id)
+                {
+                    return video;
+                }
+            }
+            return null;
         }
         
         //Filling fake db

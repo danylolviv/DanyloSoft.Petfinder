@@ -15,7 +15,7 @@ namespace DanyloSoft.PetFinder.Core.IServices
         List<Pet> Get5Cheapest();
         List<Pet> GetPetsCheapestFirst();
 
-        Pet UpdatePet(Pet oldPet);
+        Pet UpdatePet(Pet newPet);
         void DeletePet(Pet petToDelete);
         
     }

@@ -20,10 +20,6 @@ namespace DanyloSoft.PetFinder.UI
             serviceCollection.AddScoped<IPetTypeRepository, PetTypeRepository>();
             serviceCollection.AddScoped<IPetTypeService, PetTypeService>();
             serviceCollection.AddScoped<IMenu, MainMenu>();
-
-            IPetRepository repo = new PetRepository();
-
-            
             var serviceProvider = serviceCollection.BuildServiceProvider();
             
             var mainMenu = serviceProvider.GetRequiredService<IMenu>();
