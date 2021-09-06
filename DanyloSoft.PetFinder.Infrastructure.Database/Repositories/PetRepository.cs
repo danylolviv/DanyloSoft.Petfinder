@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using DanyloSoft.PetFinder.Core.Models;
 using DanyloSoft.PetFinder.Domain.IRepositories;
 
@@ -7,7 +8,7 @@ namespace DanyloSoft.PetFinder.Infrastructure.Database.Repositories
 {
     public class PetRepository : IPetRepository
     {
-        private static List<Pet> _listPets = new List<Pet>();
+        private static IList<Pet> _listPets = new List<Pet>();
         private static int _runningId = 1;
 
         public PetRepository()
@@ -22,9 +23,12 @@ namespace DanyloSoft.PetFinder.Infrastructure.Database.Repositories
             return newPet;
         }
 
-        public List<Pet> GetPets()
+        public IOrderedEnumerable<Pet> GetPets()
         {
-            return _listPets;
+            var listPets = from pet in _listPets
+                orderby pet.Id
+                select pet;
+            return listPets;
         }
 
         public List<Pet> Get5Cheapest()
@@ -77,19 +81,67 @@ namespace DanyloSoft.PetFinder.Infrastructure.Database.Repositories
             {
                 Birthday = DateTime.Now, Color = "Brown", Name = "Zoozie",
                 PetType = new PetType {Id = 1, Name = "Dog"},
-                SellOutDate = DateTime.Today, Price = 39.90
+                SellOutDate = DateTime.Today, Price = 100.90
             });
             CreatePet(new Pet
             {
                 Birthday = DateTime.Now, Color = "Pink", Name = "Many",
                 PetType = new PetType {Id = 2, Name = "Cat"},
-                SellOutDate = DateTime.Today, Price = 39.90
+                SellOutDate = DateTime.Today, Price = 27.90
             });
             CreatePet(new Pet
             {
                 Birthday = DateTime.Now, Color = "Orange", Name = "Bob",
                 PetType = new PetType {Id = 2, Name = "Cat"},
                 SellOutDate = DateTime.Today, Price = 39.90
+            });
+            CreatePet(new Pet
+            {
+                Birthday = DateTime.Now, Color = "Brown", Name = "Zoozie",
+                PetType = new PetType {Id = 1, Name = "Dog"},
+                SellOutDate = DateTime.Today, Price = 45.90
+            });
+            CreatePet(new Pet
+            {
+                Birthday = DateTime.Now, Color = "Pink", Name = "Many",
+                PetType = new PetType {Id = 2, Name = "Cat"},
+                SellOutDate = DateTime.Today, Price = 60.90
+            });
+            CreatePet(new Pet
+            {
+                Birthday = DateTime.Now, Color = "Orange", Name = "Bob",
+                PetType = new PetType {Id = 2, Name = "Cat"},
+                SellOutDate = DateTime.Today, Price = 200.90
+            });
+            CreatePet(new Pet
+            {
+                Birthday = DateTime.Now, Color = "Pink", Name = "Many",
+                PetType = new PetType {Id = 2, Name = "Cat"},
+                SellOutDate = DateTime.Today, Price = 214.90
+            });
+            CreatePet(new Pet
+            {
+                Birthday = DateTime.Now, Color = "Orange", Name = "Bob",
+                PetType = new PetType {Id = 2, Name = "Cat"},
+                SellOutDate = DateTime.Today, Price = 1050.90
+            });
+            CreatePet(new Pet
+            {
+                Birthday = DateTime.Now, Color = "Brown", Name = "Zoozie",
+                PetType = new PetType {Id = 1, Name = "Dog"},
+                SellOutDate = DateTime.Today, Price = 18.90
+            });
+            CreatePet(new Pet
+            {
+                Birthday = DateTime.Now, Color = "Pink", Name = "Many",
+                PetType = new PetType {Id = 2, Name = "Cat"},
+                SellOutDate = DateTime.Today, Price = 33.90
+            });
+            CreatePet(new Pet
+            {
+                Birthday = DateTime.Now, Color = "Orange", Name = "Bob",
+                PetType = new PetType {Id = 2, Name = "Cat"},
+                SellOutDate = DateTime.Today, Price = 54.90
             });
         }
     }

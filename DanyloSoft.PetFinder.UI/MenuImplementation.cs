@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using DanyloSoft.PetFinder.Core.IServices;
 using DanyloSoft.PetFinder.Core.Models;
@@ -95,10 +96,29 @@ namespace DanyloSoft.PetFinder.UI
         public void SeePetList()
         {
             Pt(StringConstants.PetListGreeting);
-            foreach (var pet in _petService.GetPets())
+            ListSubMenuForViews();
+            int userInput;
+            while (int.TryParse(Console.ReadLine(), out userInput))
             {
-                Pt(pet.ToString());
-            }
+                if (userInput>=1 && userInput <=4)
+                {
+                    foreach (var pet in _petService.GetOrderedListPets(userInput))
+                    {
+                        Pt(pet.ToString());
+                        Pt("");
+                    }
+                    Console.ReadLine();
+                    SeePetList();
+                }
+                Pt(StringConstants.Press0ToMainMenu);
+                
+                string secondInput = Console.ReadLine();
+                if (int.Parse(secondInput) == 0)
+                {
+                    break;
+                }
+                Pt(StringConstants.PetListGreeting);
+            }   
             
             Pt(StringConstants.ExitMainMenuText);
             int parsedNum;
@@ -111,10 +131,18 @@ namespace DanyloSoft.PetFinder.UI
             }
         }
 
+        private void ListSubMenuForViews()
+        {
+            Pt(StringConstants.SortLowestToHighest);
+            Pt(StringConstants.SortHighestToLowest);
+            Pt(StringConstants.Get5CheapestPets);
+            Pt(StringConstants.ListAllPets);
+        }
+
         public void UpdatePet()
         {
             Pt(StringConstants.EditPetsGreeting);
-            foreach (var pet in _petService.GetPets())
+            foreach (var pet in _petService.GetAllPets())
             {
                 Pt(pet.ToString());
                 Pt("");
@@ -123,7 +151,7 @@ namespace DanyloSoft.PetFinder.UI
             int chosenId;
             while (int.TryParse(Read(StringConstants.ProvideId),out chosenId))
             {
-                foreach (var petToUpdate in _petService.GetPets())
+                foreach (var petToUpdate in _petService.GetAllPets())
                 {
                     if (chosenId == petToUpdate.Id)
                     {
@@ -204,7 +232,7 @@ namespace DanyloSoft.PetFinder.UI
         public void DeletePet()
         {
             Pt(StringConstants.DeletePetGreeting);
-            foreach (var pet in _petService.GetPets())
+            foreach (var pet in _petService.GetAllPets())
             {
                 Pt(pet.ToString());
                 Pt("");
@@ -213,7 +241,7 @@ namespace DanyloSoft.PetFinder.UI
             int chosenId;
             while (int.TryParse(Console.ReadLine(),out chosenId))
             {
-                foreach (var petToDelete in _petService.GetPets())
+                foreach (var petToDelete in _petService.GetAllPets())
                 {
                     if (chosenId == petToDelete.Id)
                     {
@@ -237,8 +265,91 @@ namespace DanyloSoft.PetFinder.UI
 
         public void SearchPet()
         {
-            Pt(StringConstants.WhatToSearchFor);
+            int choice;
+            while ((choice = GetVideoSearchMenuSelection()) != 0)
+            {
+                switch (choice)
+                {
+                    case 1:
+                        Pt(StringConstants.SearchById);
+                        int inputNum = 0;
+                        while(inputNum == 0)
+                        {
+                            if (int.TryParse(Console.ReadLine(), out inputNum))
+                            {
+                                SearchById(inputNum);
+                                break;
+                            }
+                            Pt(StringConstants.VideoSearchWarning);
+                        }
+                        
+                        break;
+                    case 2:
+                        Pt(StringConstants.SearchByTitle);
+                        string inputQuery = "0";
+                        while(inputQuery.Contains("0"))
+                        {
+                            string userInput = Console.ReadLine();
+                            if (!string.IsNullOrEmpty(userInput))
+                            {
+                                //inputQuery = userInput;
+                                SearchByQuery(userInput);
+                                break;
+                            }
+                            Pt(StringConstants.VideoSearchWarning);
+                        }
+                        break;
+                    case -1:
+                        Pt(StringConstants.PleaseSelectCorrectSearchOptions);
+                        break;
+                }
+            }
+            
         }
+        
+        private void SearchById(int id)
+        {
+            List<Pet> searchResult = new List<Pet>();
+            
+            foreach (var pet in _petService.GetAllPets())
+            {
+                if (pet.Id == id)
+                {
+                    Pt(pet.ToString());
+                    Pt("");
+                }
+            }
+            
+        }
+        private void SearchByQuery(string searchQuery)
+        {
+            foreach (var pet in _petService.GetAllPets())
+            {
+                if (pet.Name.ToLower().Contains(searchQuery.ToLower()))
+                {
+                    Pt(pet.ToString());
+                    Pt("");
+                }
+                if (pet.Color.ToLower().Contains(searchQuery.ToLower()))
+                {
+                    Pt(pet.ToString());
+                    Pt(""); 
+                }
+            }
+        }
+        
+        private int GetVideoSearchMenuSelection()
+        {
+            Pt(StringConstants.WhatToSearchFor);
+            var selectionString = Console.ReadLine();
+            int selection;
+            if (int.TryParse(selectionString, out selection))
+            {
+                return selection;
+            }
+            return -1;
+        }
+        
         
         private void Pt(string toPrint)
         {

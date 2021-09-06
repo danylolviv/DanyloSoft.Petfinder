@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using DanyloSoft.PetFinder.Core.Models;
 
 namespace DanyloSoft.PetFinder.Domain.IRepositories
@@ -10,7 +11,7 @@ namespace DanyloSoft.PetFinder.Domain.IRepositories
         ///    This should be ideally taken out into a different filtering class.
         ///    But for now this will be here knowing this.  
         /// </summary>
-        List<Pet> GetPets();
+        IOrderedEnumerable<Pet> GetPets();
         List<Pet> Get5Cheapest();
         List<Pet> GetPetsCheapestFirst();
 

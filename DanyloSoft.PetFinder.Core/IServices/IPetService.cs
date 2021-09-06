@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using DanyloSoft.PetFinder.Core.Models;
 
 namespace DanyloSoft.PetFinder.Core.IServices
@@ -11,9 +12,11 @@ namespace DanyloSoft.PetFinder.Core.IServices
         ///    This should be ideally taken out into a different filtering class.
         ///    But for now this will be here knowing this.  
         /// </summary>
-        List<Pet> GetPets();
-        List<Pet> Get5Cheapest();
-        List<Pet> GetPetsCheapestFirst();
+        
+
+        IOrderedEnumerable<Pet> GetAllPets();
+
+        IOrderedEnumerable<Pet> GetOrderedListPets(int orderType);
 
         Pet UpdatePet(Pet newPet);
         void DeletePet(Pet petToDelete);
