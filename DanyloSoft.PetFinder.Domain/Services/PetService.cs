@@ -24,12 +24,12 @@ namespace DanyloSoft.PetFinder.Domain.Services
 
         
 
-        public IOrderedEnumerable<Pet> GetAllPets()
+        public IEnumerable<Pet> GetAllPets()
         {
            return _repo.GetPets();
         }
 
-        public IOrderedEnumerable<Pet> GetOrderedListPets(int orderType)
+        public IEnumerable<Pet> GetOrderedListPets(int orderType)
         {
             switch (orderType)
             {
