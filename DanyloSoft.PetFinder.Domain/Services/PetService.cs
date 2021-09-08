@@ -29,6 +29,11 @@ namespace DanyloSoft.PetFinder.Domain.Services
            return _repo.GetPets();
         }
 
+        public Pet GetPetById(int id)
+        {
+            return _repo.GetPetById(id);
+        }
+
         public IEnumerable<Pet> GetOrderedListPets(int orderType)
         {
             switch (orderType)

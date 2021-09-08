@@ -13,7 +13,11 @@ namespace DanyloSoft.PetFinder.Infrastructure.Database.Repositories
 
         public PetRepository()
         {
-            PopulateRepo();
+            if (_listPets.Count <= 0)
+            {
+                PopulateRepo();
+            }
+            
         }
         
         public Pet CreatePet(Pet newPet)
@@ -29,6 +33,18 @@ namespace DanyloSoft.PetFinder.Infrastructure.Database.Repositories
                 orderby pet.Id
                 select pet;
             return listPets;
+        }
+
+        public Pet GetPetById(int id)
+        {
+            foreach (var pet in _listPets)
+            {
+                if (id == pet.Id)
+                {
+                    return pet;
+                }
+            }
+            return null;
         }
 
         public List<Pet> Get5Cheapest()
@@ -59,7 +75,8 @@ namespace DanyloSoft.PetFinder.Infrastructure.Database.Repositories
 
         public void DeletePet(Pet petToDelete)
         {
-            _listPets.Remove(petToDelete);
+            var foundPetToDel = FindById(petToDelete.Id);
+            _listPets.Remove(foundPetToDel);
         }
         
         public Pet FindById(int id)
