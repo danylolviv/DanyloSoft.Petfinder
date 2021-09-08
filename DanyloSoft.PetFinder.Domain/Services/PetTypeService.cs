@@ -33,5 +33,10 @@ namespace DanyloSoft.PetFinder.Domain.Services
         {
             throw new System.NotImplementedException();
         }
+
+        public IEnumerable<PetType> GetByQuery(string query)
+        {
+            return _repo.GetByQuery(query);
+        }
     }
 }

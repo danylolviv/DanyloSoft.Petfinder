@@ -10,5 +10,6 @@ namespace DanyloSoft.PetFinder.Core.IServices
         PetType CreatePetType(PetType newPetType);
         PetType RemovePetType(PetType petTypeToRemove);
         PetType EditPetType(PetType petTypeToEdit);
+        IEnumerable<PetType> GetByQuery(string query);
     }
 }

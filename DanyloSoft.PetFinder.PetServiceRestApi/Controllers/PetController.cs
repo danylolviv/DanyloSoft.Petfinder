@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 namespace DanyloSoft.PetFinder.PetServiceRestApi.Controllers
 {
   [ApiController]
-  [Route("api/[controller]")]
+  [Route("petFinderApi/[controller]")]
   public class PetController : ControllerBase
   {
 

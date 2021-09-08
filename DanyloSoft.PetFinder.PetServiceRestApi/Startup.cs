@@ -41,6 +41,8 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi
       });
       services.AddScoped<IPetService, PetService>();
       services.AddScoped<IPetRepository, PetRepository>();
+      services.AddScoped<IPetTypeService, PetTypeService>();
+      services.AddScoped<IPetTypeRepository, PetTypeRepository>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

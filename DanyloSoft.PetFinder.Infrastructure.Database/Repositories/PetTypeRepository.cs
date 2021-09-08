@@ -28,6 +28,19 @@ namespace DanyloSoft.PetFinder.Infrastructure.Database.Repositories
             return newPetType;
         }
 
+        public IEnumerable<PetType> GetByQuery(string query)
+        {
+            List<PetType> searchRes = new List<PetType>();
+            foreach (var petType in _listOfPetTypes)
+            {
+                if (petType.Name.ToLower().Contains(query))
+                {
+                    searchRes.Add(petType);
+                }
+            }
+            return searchRes;
+        }
+
         public PetType RemovePetType(PetType petTypeToRemove)
         {
             throw new System.NotImplementedException();
