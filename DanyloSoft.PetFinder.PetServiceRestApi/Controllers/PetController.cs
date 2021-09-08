@@ -22,15 +22,25 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Controllers
     }
 
     [HttpGet]
-    public IEnumerable<Pet> GetAllPets()
+    public ActionResult<IEnumerable<Pet>> GetAllPets()
     {
-      return _petService.GetAllPets();
+      var answer = _petService.GetAllPets();;
+      if (answer != null)
+      {
+        return Ok(answer); 
+      }
+      return BadRequest("Something no workie.");
     }
     
     [HttpGet("{id}")]
     public ActionResult<Pet> GetPetById(int id)
     {
-      return _petService.GetPetById(id);
+      var answer = _petService.GetPetById(id);
+      if (answer != null)
+      {
+        return Ok(answer);
+      }
+      return BadRequest("Something no workie.");
     }
 
     [HttpPost]
