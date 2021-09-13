@@ -21,7 +21,7 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Controllers
         }
 
         [HttpGet]
-        public List<Owner> GetAllOwners()
+        public IEnumerable<Owner> GetAllOwners()
         {
             return _ownerService.getAllOwners();
         }

@@ -25,7 +25,7 @@ namespace DanyloSoft.PetFinder.Infrastructure.Database.Repositories
       return newOwner;
     }
 
-    public List<Owner> getAllOwners()
+    public IEnumerable<Owner> getAllOwners()
     {
       return _listOwners;
     }

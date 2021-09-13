@@ -6,7 +6,7 @@ namespace DanyloSoft.PetFinder.Domain.IRepositories
   public interface IOwnerRepository
   {
     Owner CreateOwner(Owner newOwner);
-    List<Owner> getAllOwners();
+    IEnumerable<Owner> getAllOwners();
     Owner UpdateOwner(Owner updatedOwner);
     Owner DeleteOwner(int id);
     Owner GetById(int id);

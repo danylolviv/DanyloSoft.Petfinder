@@ -1,26 +1,29 @@
 using System.Collections.Generic;
-using DanyloSoft.PetFinder.Core.IServices;
+using System.Linq;
 using DanyloSoft.PetFinder.Core.Models;
 using DanyloSoft.PetFinder.Domain.IRepositories;
 
-namespace DanyloSoft.PetFinder.Domain.Services
+namespace DanyloSoft.PetFinder.Infrastructure.Data.Repos
 {
-  public class OwnerService : IOwnerService
+  public class OwnerRepo : IOwnerRepository
   {
-    private readonly IOwnerRepository _repo;
+    private readonly PetFinderAppContext _ctx;
 
-    public OwnerService(IOwnerRepository ownerRepository)
+    public OwnerRepo(PetFinderAppContext ctx)
     {
-      _repo = ownerRepository;
+      _ctx = ctx;
     }
+    
     public Owner CreateOwner(Owner newOwner)
     {
-      return _repo.CreateOwner(newOwner);
+      var createdOwner = _ctx.Add(newOwner).Entity;
+      _ctx.SaveChanges();
+      return createdOwner;
     }
 
     public IEnumerable<Owner> getAllOwners()
     {
-      return _repo.getAllOwners();
+      return _ctx.OwnerTable;
     }
 
     public Owner UpdateOwner(Owner updatedOwner)
@@ -35,7 +38,8 @@ namespace DanyloSoft.PetFinder.Domain.Services
 
     public Owner GetById(int id)
     {
-      throw new System.NotImplementedException();
+      return _ctx.OwnerTable
+        .FirstOrDefault(c => c.Id == id);
     }
   }
 }
