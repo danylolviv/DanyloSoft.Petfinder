@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DanyloSoft.PetFinder.Core.IServices;
 using DanyloSoft.PetFinder.Core.Models;
+using DanyloSoft.PetFinder.PetServiceRestApi.Dto;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -44,12 +45,22 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Controllers
     }
 
     [HttpPost]
-    public ActionResult<Pet> CreatePet([FromBody] Pet newPet)
+    public ActionResult<Pet> CreatePet([FromBody] PostPetDTO newPetDTO)
     {
-      if (string.IsNullOrEmpty(newPet.Name))
+      if (string.IsNullOrEmpty(newPetDTO.Name))
       {
         return BadRequest(" name is required for creating new pet");
       }
+
+      Pet newPet = new Pet
+      {
+        Name = newPetDTO.Name,
+        Color = newPetDTO.Color,
+        Price = newPetDTO.Price,
+        Birthday = newPetDTO.Birthday,
+        PetType = new PetType{Id = newPetDTO.PetTypeId}
+        
+      };
       return _petService.CreatePet(newPet);
     }
 

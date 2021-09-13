@@ -59,7 +59,7 @@ namespace DanyloSoft.PetFinder.Infrastructure.Database.Repositories
 
         public Pet UpdatePet(Pet newPet)
         {
-            Pet petToUpdate = FindById(newPet.Id);
+            var petToUpdate = FindById(newPet.Id);
             if (petToUpdate != null)
             {
                 petToUpdate.Name = newPet.Name;
@@ -70,24 +70,24 @@ namespace DanyloSoft.PetFinder.Infrastructure.Database.Repositories
                 petToUpdate.PetType = newPet.PetType;
                 return petToUpdate;
             }
+
             return petToUpdate;
         }
 
         public void DeletePet(Pet petToDelete)
         {
             var foundPetToDel = FindById(petToDelete.Id);
-            _listPets.Remove(foundPetToDel);
+            if (foundPetToDel != null)
+            {
+                _listPets.Remove(foundPetToDel);   
+            }
         }
-        
+
         public Pet FindById(int id)
         {
             foreach (var video in _listPets)
-            {
                 if (video.Id == id)
-                {
                     return video;
-                }
-            }
             return null;
         }
         

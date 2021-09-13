@@ -66,22 +66,22 @@ namespace DanyloSoft.PetFinder.Domain.Services
             return orderByResult;
         }
         
-        private IOrderedEnumerable<Pet> List5Cheapest()
+        private IEnumerable<Pet> List5Cheapest()
         {
-            // var orderByResult = from pet in GetAllPets()
-            //     orderby pet.Price //Sorts the studentList collection in ascending order
-            //     select pet;
-            // return orderByResult.Take(5);
-            
             var orderByResult = from pet in GetAllPets()
                 orderby pet.Price //Sorts the studentList collection in ascending order
                 select pet;
-            IEnumerable<Pet> first5 = orderByResult.Take(5);
+            return orderByResult.Take(5).OrderBy(pet => pet);
             
-            var orderByResult2 = from pet in first5
-                orderby pet.Price //Sorts the studentList collection in ascending order
-                select pet;
-            return orderByResult2;
+            // var orderByResult = from pet in GetAllPets()
+            //     orderby pet.Price //Sorts the studentList collection in ascending order
+            //     select pet;
+            // IEnumerable<Pet> first5 = orderByResult.Take(5);
+            //
+            // var orderByResult2 = from pet in first5
+            //     orderby pet.Price //Sorts the studentList collection in ascending order
+            //     select pet;
+            // return orderByResult2;
         }
         
 

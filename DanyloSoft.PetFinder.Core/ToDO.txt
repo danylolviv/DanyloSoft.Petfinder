@@ -1,0 +1,2 @@
+Move solrting logic to the repository, because it makes more sense to have such a logic 
+there as getAllPets is really inefficient if you start talking about bigger datasets.

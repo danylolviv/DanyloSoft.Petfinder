@@ -16,7 +16,7 @@ namespace DanyloSoft.PetFinder.UI
         public const string CreatePetGreeting = "You will be asked few questions to specify the Pet you want to create. [Press 1 to continue]";
         public static string EditPetsGreeting = "Here is a list of Pets in Library, to edit video type its Id and press Enter.";
         public static string PetListGreeting = "Select a view for the pets in Library";
-        public const string WhatToSearchFor = "Please Decide what to search for (1 - Id, 2 - Name/Color, 0 - To Go Back)";
+        public const string WhatToSearchFor = "Please Decide what to search for (1 - Id, 2 - Name/Color, 3 - Pet Type 0 - To Go Back)";
         public static string DeletePetGreeting =
             "Here is a list of Pets in the system, to delete pet type its Id and press Enter.";
         public const string SearchPetGreeting = "Please Decide what to search for";
@@ -102,6 +102,8 @@ namespace DanyloSoft.PetFinder.UI
             "...::Type 3::... List 5 cheapest Pets.";
         public static string ListAllPets =
             "...::Type 4::... List all the Pets available.";
+
+        public static string ChosePetTypeToSearch = "Below is a list of pet types, choose id to search for";
 
         public static string CurrentPetCreated(Pet pet)
         {

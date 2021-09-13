@@ -299,6 +299,9 @@ namespace DanyloSoft.PetFinder.UI
                             Pt(StringConstants.VideoSearchWarning);
                         }
                         break;
+                    case 3:
+                        SearchByPetType();
+                        break;
                     case -1:
                         Pt(StringConstants.PleaseSelectCorrectSearchOptions);
                         break;
@@ -306,7 +309,16 @@ namespace DanyloSoft.PetFinder.UI
             }
             
         }
-        
+
+        private void SearchByPetType()
+        {
+            Pt(StringConstants.ChosePetTypeToSearch);
+            foreach (var pet in _petTypeService.GetListPetTypes())
+            {
+                Pt(pet.ToString());
+            }
+        }
+
         private void SearchById(int id)
         {
             List<Pet> searchResult = new List<Pet>();
