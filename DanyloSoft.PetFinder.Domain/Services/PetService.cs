@@ -8,11 +8,13 @@ namespace DanyloSoft.PetFinder.Domain.Services
 {
     public class PetService : IPetService
     {
-        private IPetRepository _repo;
+        private readonly IPetRepository _repo;
+        private readonly IOwnerRepository _owneRepo;
 
-        public PetService(IPetRepository repo)
+        public PetService(IPetRepository repo, IOwnerRepository ownerRepository)
         {
             _repo = repo;
+            _owneRepo = ownerRepository;
         }
         
         public Pet CreatePet(Pet newPet)
@@ -93,6 +95,12 @@ namespace DanyloSoft.PetFinder.Domain.Services
         public void DeletePet(Pet petToDelete)
         {
             _repo.DeletePet(petToDelete);
+        }
+
+        public List<Pet> GetPetsByOwnerId(int ownerId)
+        {
+            var owner = _owneRepo.GetById(ownerId);
+            return owner.OwnersPets;
         }
     }
 }

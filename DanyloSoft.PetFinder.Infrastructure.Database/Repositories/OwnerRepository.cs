@@ -66,13 +66,42 @@ namespace DanyloSoft.PetFinder.Infrastructure.Database.Repositories
     private void PopulateOwners()
     {
       CreateOwner(new Owner
-        {Address = "The Street", Age = 24, Name = "George"});
+        {Address = "The Street", Age = 24, Name = "George", 
+          OwnersPets = new List<Pet>
+        {
+          new Pet{Id = 1},
+          new Pet{Id = 2},
+          new Pet{Id = 3}
+        }});
       CreateOwner(new Owner
-        {Address = "Wall Street", Age = 56, Name = "Mathew"});
+      {
+        Address = "Wall Street", Age = 56, Name = "Mathew",
+        OwnersPets = new List<Pet>
+        {
+          new Pet{Id = 4},
+          new Pet{Id = 5},
+          new Pet{Id = 6}
+        }
+      });
       CreateOwner(new Owner
-        {Address = "Madison sq. Street", Age = 69, Name = "Elizabeth"});
+      {
+        Address = "Madison sq. Street", Age = 69, Name = "Elizabeth",
+        OwnersPets = new List<Pet>
+        {
+          new Pet{Id = 7},
+          new Pet{Id = 8},
+          new Pet{Id = 9}
+        }
+      });
       CreateOwner(new Owner
-        {Address = "The Street", Age = 18, Name = "La Clerk"});
+      {
+        Address = "The Street", Age = 18, Name = "La Clerk",
+        OwnersPets = new List<Pet>
+        {
+          new Pet{Id = 10},
+          new Pet{Id = 11}
+        }
+      });
     }
   }
 }

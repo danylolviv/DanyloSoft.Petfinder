@@ -22,6 +22,7 @@ namespace DanyloSoft.PetFinder.Core.IServices
 
         Pet UpdatePet(Pet newPet);
         void DeletePet(Pet petToDelete);
-        
+
+        List<Pet> GetPetsByOwnerId(int ownerId);
     }
 }

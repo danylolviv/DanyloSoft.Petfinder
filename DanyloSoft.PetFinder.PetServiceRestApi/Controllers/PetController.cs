@@ -44,6 +44,12 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Controllers
       return BadRequest("Something no workie.");
     }
 
+    [HttpGet("{id}")]
+    public List<Pet> GetPetsByOwnerId(int ownerId)
+    {
+      return _petService.GetPetsByOwnerId(ownerId);
+    }
+
     [HttpPost]
     public ActionResult<Pet> CreatePet([FromBody] PostPetDTO newPetDTO)
     {
