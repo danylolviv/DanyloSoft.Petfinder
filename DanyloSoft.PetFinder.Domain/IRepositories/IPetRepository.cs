@@ -18,6 +18,6 @@ namespace DanyloSoft.PetFinder.Domain.IRepositories
         List<Pet> GetPetsCheapestFirst();
 
         Pet UpdatePet(Pet oldPet);
-        void DeletePet(Pet petToDelete);    
+        void DeletePet(int Id);    
     }
 }

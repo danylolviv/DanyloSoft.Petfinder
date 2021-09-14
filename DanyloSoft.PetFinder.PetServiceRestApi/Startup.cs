@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using DanyloSoft.PetFinder.Core.IServices;
 using DanyloSoft.PetFinder.Domain.IRepositories;
 using DanyloSoft.PetFinder.Domain.Services;
@@ -9,8 +5,6 @@ using DanyloSoft.PetFinder.Infrastructure.Data;
 using DanyloSoft.PetFinder.Infrastructure.Data.Repos;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -42,9 +36,20 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi
           });
       });
 
+      var loggerFactory = LoggerFactory.Create(builder =>
+      {
+        builder.AddConsole();
+      });
+      
+      
+
       services.AddDbContext<PetFinderAppContext>(
-        opt => opt.UseInMemoryDatabase("ThaDB")
-        );
+        opt =>
+        {
+          opt
+            .UseLoggerFactory(loggerFactory)
+            .UseSqlite("Data Source=PetFinderApp.db");
+        }, ServiceLifetime.Transient);
       
       services.AddScoped<IPetService, PetService>();
       services.AddScoped<IPetRepository, PetRepo>();
@@ -63,6 +68,13 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi
         app.UseSwagger();
         app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json",
           "DanyloSoft.PetFinder.PetServiceRestApi v1"));
+
+        using (var scope = app.ApplicationServices.CreateScope())
+        {
+          var ctx = scope.ServiceProvider.GetService<PetFinderAppContext>();
+          ctx.Database.EnsureDeleted();
+          ctx.Database.EnsureCreated();
+        }
       }
 
       //app.UseHttpsRedirection();

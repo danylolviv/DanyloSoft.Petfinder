@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using DanyloSoft.PetFinder.Core.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,8 +12,8 @@ namespace DanyloSoft.PetFinder.Infrastructure.Data
     {
       
     }
-    public DbSet<Pet> PetTable { get; set; }
-    public DbSet<PetType> PetTypeTable { get; set; }
+    public IOrderedEnumerable<Pet> PetTable { get; set; }
+    public List<PetType> PetTypeTable { get; set; }
     public DbSet<Owner> OwnerTable { get; set; }
   }
 }

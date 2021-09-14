@@ -74,9 +74,9 @@ namespace DanyloSoft.PetFinder.Infrastructure.Database.Repositories
             return petToUpdate;
         }
 
-        public void DeletePet(Pet petToDelete)
+        public void DeletePet(int id)
         {
-            var foundPetToDel = FindById(petToDelete.Id);
+            var foundPetToDel = FindById(id);
             if (foundPetToDel != null)
             {
                 _listPets.Remove(foundPetToDel);   

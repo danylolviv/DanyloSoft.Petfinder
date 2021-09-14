@@ -21,7 +21,7 @@ namespace DanyloSoft.PetFinder.Core.IServices
         IEnumerable<Pet> GetOrderedListPets(int orderType);
 
         Pet UpdatePet(Pet newPet);
-        void DeletePet(Pet petToDelete);
+        void DeletePet(int Id);
 
         List<Pet> GetPetsByOwnerId(int ownerId);
     }

@@ -5,12 +5,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0-preview.5.21301.9" />
+      <ProjectReference Include="..\DanyloSoft.PetFinder.Core\DanyloSoft.PetFinder.Core.csproj" />
+      <ProjectReference Include="..\DanyloSoft.PetFinder.Domain\DanyloSoft.PetFinder.Domain.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\DanyloSoft.PetFinder.Core\DanyloSoft.PetFinder.Core.csproj" />
-      <ProjectReference Include="..\DanyloSoft.PetFinder.Domain\DanyloSoft.PetFinder.Domain.csproj" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.9" />
     </ItemGroup>
 
 </Project>

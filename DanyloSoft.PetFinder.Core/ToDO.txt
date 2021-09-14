@@ -1,2 +1,6 @@
 Move solrting logic to the repository, because it makes more sense to have such a logic 
 there as getAllPets is really inefficient if you start talking about bigger datasets.
+
+Adding converters to move between layers with the entities that are fitting the layers.
+
+Q1 Problem with return types for getAllPets/Owners/PetTypes

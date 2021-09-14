@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using DanyloSoft.PetFinder.Core.IServices;
 using DanyloSoft.PetFinder.Core.Models;
+using DanyloSoft.PetFinder.PetServiceRestApi.Dto.Owners;
+using DanyloSoft.PetFinder.PetServiceRestApi.Dto.Transformers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,11 +15,13 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Controllers
     [ApiController]
     public class OwnerController : ControllerBase
     {
+        private Transformer _transformer;
         private readonly IOwnerService _ownerService;
 
         public OwnerController(IOwnerService ownerService)
         {
             _ownerService = ownerService;
+            _transformer = new Transformer();
         }
 
         [HttpGet]
@@ -27,50 +31,42 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Owner> GetWnerById(int id)
+        public ActionResult<Owner> GetOwnerById(int id)
         {
             return _ownerService.GetById(id);
         }
         
         [HttpPost]
-        public ActionResult<Owner> CreatePet([FromBody] Owner newOwner)
+        public ActionResult<Owner> CreateOwner([FromBody] PostOwnerDto newOwnerDto)
         {
-            if (string.IsNullOrEmpty(newOwner.Name))
+            if (string.IsNullOrEmpty(newOwnerDto.Name))
             {
                 return BadRequest(" name is required for creating new pet");
             }
-
-            Owner newOwner1 = new Owner
-            {
-                Name = newOwner.Name,
-                Age = newOwner.Age,
-                Address = newOwner.Address
-        
-            };
-            return _ownerService.CreateOwner(newOwner1);
+            return _ownerService.CreateOwner(_transformer.PostOwnerTrans(newOwnerDto));
         }
         
         [HttpPut("{id}")]
-        public ActionResult<Owner> UpdateOwner(int id, Owner updatedOwner)
+        public ActionResult<Owner> UpdateOwner(int id, PutOwnerDto putOwnerDto)
         {
-            if (id < 1 || id != updatedOwner.Id)
+            if (id < 1 || id != putOwnerDto.Id)
             {
                 return BadRequest("Pet id and id mush match.");
             }
-            return _ownerService.UpdateOwner(updatedOwner);
+            return _ownerService.UpdateOwner(_transformer.PutOwnerTrans(putOwnerDto, _ownerService.GetById(id)));
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<Pet> DeletePet(int id, Pet ownerToDelete)
+        public ActionResult<Pet> DeleteOwner(int id, Pet ownerToDelete)
         {
             if (id != ownerToDelete.Id)
             {
                 return BadRequest(
-                    "Sorry the video could not be deleted because of lack of access, " +
+                    "Sorry owner could not be deleted because of lack of access, " +
                     "try matching id in the url with the id of video you want to delete");
             }
             _ownerService.DeleteOwner(ownerToDelete.Id);
-            return Ok($"Successfully deleted video with id {id}");
+            return Ok($"Successfully deleted owner with id {id}");
         }
         
     }

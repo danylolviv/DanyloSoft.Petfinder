@@ -15,12 +15,12 @@ namespace DanyloSoft.PetFinder.Infrastructure.Data.Repos
     
     public List<PetType> GetListPetTypes()
     {
-      throw new System.NotImplementedException();
+      return _ctx.PetTypeTable;
     }
 
     public PetType CreatePetType(PetType newPetType)
     {
-      throw new System.NotImplementedException();
+      return _ctx.Add(newPetType).Entity;
     }
 
     public PetType RemovePetType(PetType petTypeToRemove)
@@ -30,12 +30,20 @@ namespace DanyloSoft.PetFinder.Infrastructure.Data.Repos
 
     public PetType EditPetType(PetType petTypeToEdit)
     {
-      throw new System.NotImplementedException();
+      return _ctx.Update(petTypeToEdit).Entity;
     }
 
     public IEnumerable<PetType> GetByQuery(string query)
     {
-      throw new System.NotImplementedException();
+      List<PetType> matchingList = new List<PetType>();
+      foreach (var petType in _ctx.PetTypeTable)
+      {
+        if (petType.Name.ToLower().Contains(query.ToLower()))
+        {
+          matchingList.Add(petType);
+        }
+      }
+      return matchingList;
     }
   }
 }

@@ -15,17 +15,18 @@ namespace DanyloSoft.PetFinder.Infrastructure.Data.Repos
     }
     public Pet CreatePet(Pet newPet)
     {
-      throw new System.NotImplementedException();
+      return _ctx.Add(newPet).Entity;
     }
 
     public IOrderedEnumerable<Pet> GetPets()
     {
-      throw new System.NotImplementedException();
+      return _ctx.PetTable;
     }
 
     public Pet GetPetById(int id)
     {
-      throw new System.NotImplementedException();
+      return _ctx.PetTable
+        .FirstOrDefault(c => c.Id == id);
     }
 
     public List<Pet> Get5Cheapest()
@@ -38,14 +39,15 @@ namespace DanyloSoft.PetFinder.Infrastructure.Data.Repos
       throw new System.NotImplementedException();
     }
 
-    public Pet UpdatePet(Pet oldPet)
+    public Pet UpdatePet(Pet newPet)
     {
-      throw new System.NotImplementedException();
+      return _ctx.Update(newPet).Entity;
     }
 
-    public void DeletePet(Pet petToDelete)
+    public void DeletePet(int Id)
     {
-      throw new System.NotImplementedException();
+      var pet = GetPetById(Id);
+      _ctx.Remove(pet);
     }
   }
 }

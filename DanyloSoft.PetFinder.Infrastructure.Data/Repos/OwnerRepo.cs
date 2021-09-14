@@ -28,12 +28,14 @@ namespace DanyloSoft.PetFinder.Infrastructure.Data.Repos
 
     public Owner UpdateOwner(Owner updatedOwner)
     {
-      throw new System.NotImplementedException();
+      return _ctx.Update(updatedOwner).Entity;
     }
 
     public Owner DeleteOwner(int id)
     {
-      throw new System.NotImplementedException();
+      var owner = GetById(id);
+      _ctx.OwnerTable.Remove(owner);
+      return owner;
     }
 
     public Owner GetById(int id)

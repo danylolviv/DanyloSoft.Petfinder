@@ -249,7 +249,7 @@ namespace DanyloSoft.PetFinder.UI
                         Pt(petToDelete.ToString());
                         if (int.Parse(Console.ReadLine()) == 1)
                         {
-                            _petService.DeletePet(petToDelete);
+                            _petService.DeletePet(chosenId);
                             Pt(StringConstants.SuccessfullyDeleted);
                         }
                         break;
