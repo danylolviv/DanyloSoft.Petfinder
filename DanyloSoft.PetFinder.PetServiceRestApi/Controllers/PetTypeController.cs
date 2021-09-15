@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using DanyloSoft.PetFinder.Core.IServices;
 using DanyloSoft.PetFinder.Core.Models;
+using DanyloSoft.PetFinder.PetServiceRestApi.Dto.PetTypes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DanyloSoft.PetFinder.PetServiceRestApi.Controllers
@@ -10,22 +11,48 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Controllers
   public class PetTypeController : ControllerBase
   {
     private readonly IPetTypeService _petTypeService;
-    
+    private readonly PetTypeTransformer _tr;
+
+
     public PetTypeController(IPetTypeService petTypeService)
     {
       _petTypeService = petTypeService;
+      _tr = new PetTypeTransformer();
     }
 
     [HttpGet]
-    public IEnumerable<PetType> GetAllPetTypes()
+    public ActionResult<List<GetPetTypeDto>> GetAllPetTypes()
     {
-      return _petTypeService.GetListPetTypes();
+      var listPetTypes = new List<GetPetTypeDto>();
+      foreach (var petType in _petTypeService.GetListPetTypes())
+      {
+        listPetTypes.Add(_tr.GetPetType(petType));
+      }
+      return listPetTypes;
     }
 
     [HttpGet("{query}")]
-    public IEnumerable<PetType> GetPetTypesQuery(string query)
+    public ActionResult<List<GetPetTypeDto>> GetPetTypesQuery(string query)
     {
-      return _petTypeService.GetByQuery(query);
+      var listPetTypes = new List<GetPetTypeDto>();
+      foreach (var petType in _petTypeService.GetByQuery(query))
+      {
+        listPetTypes.Add(_tr.GetPetType(petType));
+      }
+      return Ok(listPetTypes);
+    }
+
+    [HttpPost]
+    public ActionResult<GetPetTypeDto> CreatePetType(PostPetTypeDto postPetTypeDto)
+    {
+      return _tr.GetPetType(_petTypeService.CreatePetType(postPetTypeDto.Name));
+    }
+
+    [HttpPut("{id}")]
+    public ActionResult<GetPetTypeDto> UpdatePet(PutPetTypeDto putPetTypeDto)
+    {
+      var upPet = _petTypeService.EditPetType(_tr.PutPetType(putPetTypeDto));
+      return Ok(_tr.GetPetType(upPet));
     }
   }
 }

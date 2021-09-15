@@ -30,5 +30,17 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Dto
       };
       return pet;
     }
+
+    public GetPetDto GetPet(Pet petM)
+    {
+      GetPetDto pet = new GetPetDto
+      {
+        Name = petM.Name,
+        Color = petM.Color,
+        Price = petM.Price,
+        PetType = petM.PetType.Name
+      };
+      return pet;
+    }
   }
 }

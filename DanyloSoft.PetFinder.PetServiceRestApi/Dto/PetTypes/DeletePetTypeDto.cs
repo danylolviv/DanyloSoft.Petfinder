@@ -1,7 +1,7 @@
 namespace DanyloSoft.PetFinder.PetServiceRestApi.Dto.PetTypes
 {
-  public class PutPetDto
+  public class DeletePetTypeDto
   {
-    
+    public int Id { get; set; }
   }
 }

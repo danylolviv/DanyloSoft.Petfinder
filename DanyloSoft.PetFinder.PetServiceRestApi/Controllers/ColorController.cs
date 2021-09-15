@@ -29,7 +29,7 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Controllers
     [HttpGet]
     public List<GetColorDto> GetAllColors()
     {
-      List<GetColorDto> listColors = new List<GetColorDto>();
+      var listColors = new List<GetColorDto>();
       foreach (var color in _service.GetAllColors())
       {
         listColors.Add(_tr.GetColorTrans(color));

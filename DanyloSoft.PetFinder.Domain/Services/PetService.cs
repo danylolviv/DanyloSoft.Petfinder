@@ -92,9 +92,11 @@ namespace DanyloSoft.PetFinder.Domain.Services
             return _repo.UpdatePet(newPet);
         }
 
-        public void DeletePet(int Id)
+        public Pet DeletePet(int id)
         {
-            _repo.DeletePet(Id);
+            var delPet = GetPetById(id);
+            _repo.DeletePet(id);
+            return delPet;
         }
 
         public List<Pet> GetPetsByOwnerId(int ownerId)

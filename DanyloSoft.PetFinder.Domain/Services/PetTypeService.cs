@@ -19,7 +19,7 @@ namespace DanyloSoft.PetFinder.Domain.Services
             return _repo.GetListPetTypes();
         }
 
-        public PetType CreatePetType(PetType newPetType)
+        public PetType CreatePetType(string newPetType)
         {
             throw new System.NotImplementedException();
         }

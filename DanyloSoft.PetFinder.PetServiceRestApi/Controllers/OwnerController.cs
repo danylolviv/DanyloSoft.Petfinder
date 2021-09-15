@@ -30,7 +30,7 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Controllers
     [HttpGet]
     public List<GetOwnerDto> GetAllOwners()
     {
-      List<GetOwnerDto> listOwners = new List<GetOwnerDto>();
+      var listOwners = new List<GetOwnerDto>();
       foreach (var owner in _ownerService.getAllOwners())
       {
         listOwners.Add(_tr.GetOwner(owner));
@@ -71,16 +71,17 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Controllers
     }
 
     [HttpDelete("{id}")]
-    public ActionResult<Pet> DeleteOwner(int id, Pet ownerToDelete)
+    public ActionResult<GetOwnerDto> DeleteOwner(int id, DeleteOwnerDto ownerToDelete)
     {
-      if (id != ownerToDelete.Id)
+      if (id != ownerToDelete.id)
       {
         return BadRequest(
           "Sorry owner could not be deleted because of lack of access, " +
           "try matching id in the url with the id of video you want to delete");
       }
 
-      _ownerService.DeleteOwner(ownerToDelete.Id);
+      return _tr.GetOwner(_ownerService.DeleteOwner(ownerToDelete.id)) ;
+      
       return Ok($"Successfully deleted owner with id {id}");
     }
   }
