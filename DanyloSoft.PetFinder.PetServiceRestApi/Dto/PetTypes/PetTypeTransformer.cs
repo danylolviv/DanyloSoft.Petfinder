@@ -1,7 +1,7 @@
 namespace DanyloSoft.PetFinder.PetServiceRestApi.Dto.PetTypes
 {
-  public class PostPetTypeDto
+  public class PetTypeTransformer
   {
-    private string Name { get; set; }
+    
   }
 }

@@ -15,13 +15,13 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Controllers
   [Route("petFinderApi/[controller]")]
   public class PetController : ControllerBase
   {
-    private Transformer _transformer;
+    private PetTransformer _transformer;
     private readonly IPetService _petService;
 
     public PetController(IPetService petService)
     {
       _petService = petService;
-      _transformer = new Transformer();
+      _transformer = new PetTransformer();
     }
 
     [HttpGet]

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using DanyloSoft.PetFinder.Core.Models;
 using DanyloSoft.PetFinder.Domain.IRepositories;
 
@@ -15,7 +16,7 @@ namespace DanyloSoft.PetFinder.Infrastructure.Data.Repos
     
     public List<PetType> GetListPetTypes()
     {
-      return _ctx.PetTypeTable;
+      return _ctx.PetTypeTable.ToList();
     }
 
     public PetType CreatePetType(PetType newPetType)

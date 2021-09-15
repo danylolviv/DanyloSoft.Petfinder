@@ -57,5 +57,15 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Dto.Transformers
       };
       return owner;
     }
+
+    public Color PutColorTrans(PutColorDto putColorDto)
+    {
+      Color col = new Color
+      {
+        Id = putColorDto.Id,
+        ColorName = putColorDto.ColorName
+      };
+      return col;
+    }
   }
 }
