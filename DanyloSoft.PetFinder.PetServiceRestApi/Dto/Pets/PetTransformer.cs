@@ -9,7 +9,10 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Dto
       Pet pet = new Pet
       {
         Name = postPetDto.Name,
-        Color = postPetDto.Color,
+        Color = new Color
+        {
+          Id = postPetDto.ColorId
+        },
         Price = postPetDto.Price,
         Birthday = postPetDto.Birthday,
         PetType = new PetType {Id = postPetDto.PetTypeId}
@@ -23,7 +26,10 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Dto
       {
         Id = oldPet.Id,
         Name = putPetDto.Name,
-        Color = putPetDto.Color,
+        Color = new Color
+        {
+          Id = putPetDto.ColorId
+        },
         Price = putPetDto.Price,
         Birthday = oldPet.Birthday,
         PetType = new PetType {Id = oldPet.PetType.Id}
@@ -36,7 +42,7 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Dto
       GetPetDto pet = new GetPetDto
       {
         Name = petM.Name,
-        Color = petM.Color,
+        ColorId = petM.Color.Id,
         Price = petM.Price,
         PetType = petM.PetType.Name
       };

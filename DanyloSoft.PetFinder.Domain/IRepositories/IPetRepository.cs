@@ -12,11 +12,8 @@ namespace DanyloSoft.PetFinder.Domain.IRepositories
         ///    But for now this will be here knowing this.  
         /// </summary>
         IOrderedEnumerable<Pet> GetPets();
-
+        IEnumerable<Pet> GetOrderedListPets(int searchQuery);
         Pet GetPetById(int id);
-        List<Pet> Get5Cheapest();
-        List<Pet> GetPetsCheapestFirst();
-
         Pet UpdatePet(Pet oldPet);
         void DeletePet(int Id);    
     }

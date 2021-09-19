@@ -35,6 +35,16 @@ namespace DanyloSoft.PetFinder.Infrastructure.Database.Repositories
             return listPets;
         }
 
+        public IEnumerable<Pet> GetOrderedListPets(int searchQuery)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IOrderedEnumerable<Pet> GetOrderedListPets(string searchQuery)
+        {
+            throw new NotImplementedException();
+        }
+
         public Pet GetPetById(int id)
         {
             foreach (var pet in _listPets)

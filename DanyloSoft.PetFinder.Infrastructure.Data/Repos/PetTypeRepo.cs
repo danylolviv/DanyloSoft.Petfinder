@@ -19,6 +19,12 @@ namespace DanyloSoft.PetFinder.Infrastructure.Data.Repos
       return _ctx.PetTypeTable.ToList();
     }
 
+    public PetType GetById(int id)
+    {
+      return _ctx.PetTypeTable
+        .FirstOrDefault(c => c.Id == id);
+    }
+
     public PetType CreatePetType(PetType newPetType)
     {
       return _ctx.Add(newPetType).Entity;

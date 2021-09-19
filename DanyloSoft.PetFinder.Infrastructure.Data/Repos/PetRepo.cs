@@ -13,10 +13,6 @@ namespace DanyloSoft.PetFinder.Infrastructure.Data.Repos
     {
       _ctx = ctx;
     }
-    public Pet CreatePet(Pet newPet)
-    {
-      return _ctx.Add(newPet).Entity;
-    }
 
     public IOrderedEnumerable<Pet> GetPets()
     {
@@ -29,14 +25,9 @@ namespace DanyloSoft.PetFinder.Infrastructure.Data.Repos
         .FirstOrDefault(c => c.Id == id);
     }
 
-    public List<Pet> Get5Cheapest()
+    public Pet CreatePet(Pet newPet)
     {
-      throw new System.NotImplementedException();
-    }
-
-    public List<Pet> GetPetsCheapestFirst()
-    {
-      throw new System.NotImplementedException();
+      return _ctx.Add(newPet).Entity;
     }
 
     public Pet UpdatePet(Pet newPet)
@@ -49,5 +40,64 @@ namespace DanyloSoft.PetFinder.Infrastructure.Data.Repos
       var pet = GetPetById(Id);
       _ctx.Remove(pet);
     }
+
+    #region Sorting algorithms
+
+    public IEnumerable<Pet> GetOrderedListPets(int searchQuery)
+    {
+      switch (searchQuery)
+      {
+        case 1:
+          return SortLowestToHighest();
+        case 2:
+          return SortHighestToLowest();
+        case 3:
+          return Get5Cheapest();
+        case 4:
+          return GetPets();
+      }
+      return _ctx.PetTable;
+    }
+
+    public List<Pet> Get5Cheapest()
+    {
+      var orderByResult = from pet in _ctx.PetTable
+        orderby pet.Price //Sorts the studentList collection in ascending order
+        select pet;
+      return orderByResult.Take(5).ToList();
+    }
+
+    private IOrderedEnumerable<Pet> SortLowestToHighest()
+    {
+      var orderByResult = from pet in _ctx.PetTable
+        orderby pet.Price //Sorts the studentList collection in ascending order
+        select pet;
+      return orderByResult;
+    }
+
+    private IOrderedEnumerable<Pet> SortHighestToLowest()
+    {
+      var orderByResult = from pet in _ctx.PetTable
+        orderby pet.Price descending //Sorts the studentList collection in descending order
+        select pet;
+      return orderByResult;
+    }
+    
+    private IEnumerable<Pet> List5Cheapest()
+    {
+      return null;
+      // var orderByResult = from pet in GetAllPets()
+      //     orderby pet.Price //Sorts the studentList collection in ascending order
+      //     select pet;
+      // IEnumerable<Pet> first5 = orderByResult.Take(5);
+      //
+      // var orderByResult2 = from pet in first5
+      //     orderby pet.Price //Sorts the studentList collection in ascending order
+      //     select pet;
+      // return orderByResult2;
+    }
+
+    #endregion
+    
   }
 }

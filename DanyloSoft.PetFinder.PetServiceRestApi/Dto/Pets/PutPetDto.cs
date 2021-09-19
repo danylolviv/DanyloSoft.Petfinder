@@ -6,7 +6,7 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Dto
   {
     public int Id { get; set; }
     public string Name { get; set; }
-    public string Color { get; set; }
+    public int ColorId { get; set; }
     public double Price { get; set; }
   }
 }

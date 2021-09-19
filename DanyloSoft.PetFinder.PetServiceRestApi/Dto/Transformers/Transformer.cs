@@ -11,7 +11,10 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Dto.Transformers
       Pet pet = new Pet
       {
         Name = postPetDto.Name,
-        Color = postPetDto.Color,
+        Color = new Color
+        {
+          Id = postPetDto.ColorId
+        },
         Price = postPetDto.Price,
         Birthday = postPetDto.Birthday,
         PetType = new PetType {Id = postPetDto.PetTypeId}
@@ -25,7 +28,10 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Dto.Transformers
       {
         Id = oldPet.Id,
         Name = putPetDto.Name,
-        Color = putPetDto.Color,
+        Color = new Color
+        {
+          Id = putPetDto.ColorId
+        },
         Price = putPetDto.Price,
         Birthday = oldPet.Birthday,
         PetType = new PetType {Id = oldPet.PetType.Id}

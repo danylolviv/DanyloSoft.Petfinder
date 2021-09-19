@@ -10,21 +10,16 @@ namespace DanyloSoft.PetFinder.Domain.Services
     {
         private readonly IPetRepository _repo;
         private readonly IOwnerRepository _owneRepo;
+        private readonly IPetTypeRepository _petTypeRepo;
 
-        public PetService(IPetRepository repo, IOwnerRepository ownerRepository)
+
+        public PetService(IPetRepository repo, IOwnerRepository ownerRepository, IPetTypeRepository petTypeRepository)
         {
             _repo = repo;
             _owneRepo = ownerRepository;
-        }
-        
-        public Pet CreatePet(Pet newPet)
-        {
-           return _repo.CreatePet(newPet);
+            _petTypeRepo = petTypeRepository;
         }
 
-        
-
-        
 
         public IEnumerable<Pet> GetAllPets()
         {
@@ -36,62 +31,23 @@ namespace DanyloSoft.PetFinder.Domain.Services
             return _repo.GetPetById(id);
         }
 
-        public IEnumerable<Pet> GetOrderedListPets(int orderType)
+        public Pet CreatePet(Pet newPet)
         {
-            switch (orderType)
-            {
-                case 1:
-                    return SortLowestToHighest();
-                case 2:
-                    return SortHighestToLowest();
-                case 3:
-                    return List5Cheapest();
-                case 4:
-                    return GetAllPets();
-            }
-            return _repo.GetPets();
+            PetType petType = _petTypeRepo.GetById(newPet.PetType.Id);
+            newPet.PetType = petType;
+            return _repo.CreatePet(newPet);
         }
-        
-        private IOrderedEnumerable<Pet> SortLowestToHighest()
-        {
-            var orderByResult = from pet in GetAllPets()
-                orderby pet.Price //Sorts the studentList collection in ascending order
-                select pet;
-            return orderByResult;
-        }
-
-        private IOrderedEnumerable<Pet> SortHighestToLowest()
-        {
-            var orderByResult = from pet in GetAllPets()
-                orderby pet.Price descending //Sorts the studentList collection in descending order
-                select pet;
-            return orderByResult;
-        }
-        
-        private IEnumerable<Pet> List5Cheapest()
-        {
-            var orderByResult = from pet in GetAllPets()
-                orderby pet.Price //Sorts the studentList collection in ascending order
-                select pet;
-            return orderByResult.Take(5).OrderBy(pet => pet);
-            
-            // var orderByResult = from pet in GetAllPets()
-            //     orderby pet.Price //Sorts the studentList collection in ascending order
-            //     select pet;
-            // IEnumerable<Pet> first5 = orderByResult.Take(5);
-            //
-            // var orderByResult2 = from pet in first5
-            //     orderby pet.Price //Sorts the studentList collection in ascending order
-            //     select pet;
-            // return orderByResult2;
-        }
-        
 
         public Pet UpdatePet(Pet newPet)
         {
             return _repo.UpdatePet(newPet);
         }
 
+        public IEnumerable<Pet> GetOrderedListPets(int orderType)
+        {
+            return GetOrderedListPets(orderType);
+        }
+        
         public Pet DeletePet(int id)
         {
             var delPet = GetPetById(id);

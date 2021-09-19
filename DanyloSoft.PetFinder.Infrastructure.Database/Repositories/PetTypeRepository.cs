@@ -21,6 +21,11 @@ namespace DanyloSoft.PetFinder.Infrastructure.Database.Repositories
             return _listOfPetTypes;
         }
 
+        public PetType GetById(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public PetType CreatePetType(PetType newPetType)
         {
             newPetType.Id = _runningId++;

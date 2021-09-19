@@ -9,7 +9,7 @@ namespace DanyloSoft.PetFinder.Core.Models
         public PetType PetType { get; set; }
         public DateTime Birthday { get; set; }
         public DateTime SellOutDate { get; set; }
-        public string Color { get; set; }
+        public Color Color { get; set; }
         public double Price { get; set; }
 
         public override string ToString()
