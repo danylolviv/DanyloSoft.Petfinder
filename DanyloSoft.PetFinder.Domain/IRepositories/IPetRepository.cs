@@ -11,7 +11,7 @@ namespace DanyloSoft.PetFinder.Domain.IRepositories
         ///    This should be ideally taken out into a different filtering class.
         ///    But for now this will be here knowing this.  
         /// </summary>
-        IOrderedEnumerable<Pet> GetPets();
+        List<Pet> GetPets();
         IEnumerable<Pet> GetOrderedListPets(int searchQuery);
         Pet GetPetById(int id);
         Pet UpdatePet(Pet oldPet);

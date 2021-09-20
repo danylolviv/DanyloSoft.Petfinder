@@ -53,13 +53,17 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Controllers
     [HttpPut("{id}")]
     public GetColorDto UpdateColor(PutColorDto putColorDto)
     {
-      return _tr.GetColorTrans(_tr.PutColorTrans(putColorDto));
+      return _tr.GetColorTrans(_service.UpdateColor(_tr.PutColorTrans(putColorDto)));
     }
 
     [HttpDelete("{id}")]
-    public GetColorDto DeleteColor(DeleteColorDto deleteColorDto)
+    public ActionResult<GetColorDto> DeleteColor(DeleteColorDto deleteColorDto, int id)
     {
-      return _tr.GetColorTrans(_service.DeleteColor(deleteColorDto.id));
+      if (id == deleteColorDto.id)
+      {
+        return _tr.GetColorTrans(_service.DeleteColor(deleteColorDto.id));  
+      }
+      return BadRequest("No good");
     }
   }
 }

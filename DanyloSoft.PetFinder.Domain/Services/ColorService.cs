@@ -30,12 +30,12 @@ namespace DanyloSoft.PetFinder.Domain.Services
 
     public Color DeleteColor(int id)
     {
-      throw new System.NotImplementedException();
+      return _repo.DeleteColor(id);
     }
 
     public Color UpdateColor(Color updatedColor)
     {
-      throw new System.NotImplementedException();
+      return _repo.UpdateColor(updatedColor);
     }
   }
 }

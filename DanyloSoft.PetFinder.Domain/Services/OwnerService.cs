@@ -25,17 +25,17 @@ namespace DanyloSoft.PetFinder.Domain.Services
 
     public Owner UpdateOwner(Owner updatedOwner)
     {
-      throw new System.NotImplementedException();
+      return _repo.UpdateOwner(updatedOwner);
     }
 
     public Owner DeleteOwner(int id)
     {
-      throw new System.NotImplementedException();
+      return _repo.DeleteOwner(id);
     }
 
     public Owner GetById(int id)
     {
-      throw new System.NotImplementedException();
+      return _repo.GetById(id);
     }
   }
 }

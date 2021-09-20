@@ -1,16 +1,10 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using DanyloSoft.PetFinder.Core.IServices;
-using DanyloSoft.PetFinder.Core.Models;
-using DanyloSoft.PetFinder.PetServiceRestApi.Dto;
 using DanyloSoft.PetFinder.PetServiceRestApi.Dto.Owners;
-using DanyloSoft.PetFinder.PetServiceRestApi.Dto.Transformers;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DanyloSoft.PetFinder.PetServiceRestApi.Controllers
+
 {
   [Route("api/[controller]")]
   [ApiController]
@@ -80,9 +74,7 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Controllers
           "try matching id in the url with the id of video you want to delete");
       }
 
-      return _tr.GetOwner(_ownerService.DeleteOwner(ownerToDelete.id)) ;
-      
-      return Ok($"Successfully deleted owner with id {id}");
+      return Ok(_tr.GetOwner(_ownerService.DeleteOwner(ownerToDelete.id))) ;
     }
   }
 }
