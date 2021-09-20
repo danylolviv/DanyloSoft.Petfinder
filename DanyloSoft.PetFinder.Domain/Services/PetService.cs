@@ -25,7 +25,12 @@ namespace DanyloSoft.PetFinder.Domain.Services
 
         public IEnumerable<Pet> GetAllPets()
         {
-           return _repo.GetPets();
+            IEnumerable<Pet> list = _repo.GetPets();
+            foreach (var pet in list)
+            {
+                GetForeignData(pet);
+            }
+           return list;
         }
 
         public Pet GetPetById(int id)
@@ -50,7 +55,7 @@ namespace DanyloSoft.PetFinder.Domain.Services
 
         public Pet UpdatePet(Pet newPet)
         {
-            return _repo.UpdatePet(newPet);
+            return GetForeignData(_repo.UpdatePet(newPet));
         }
 
         public IEnumerable<Pet> GetOrderedListPets(int orderType)

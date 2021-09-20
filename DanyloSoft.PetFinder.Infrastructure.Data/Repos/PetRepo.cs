@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DanyloSoft.PetFinder.Core.Models;
 using DanyloSoft.PetFinder.Domain.IRepositories;
+using DanyloSoft.PetFinder.Infrastructure.Data.Entities;
 using DanyloSoft.PetFinder.Infrastructure.Data.Entities.Transformers;
 
 namespace DanyloSoft.PetFinder.Infrastructure.Data.Repos
@@ -37,12 +38,15 @@ namespace DanyloSoft.PetFinder.Infrastructure.Data.Repos
       return createdPet;
     }
 
-    public Pet UpdatePet(Pet newPet)
+    public Pet UpdatePet(Pet updatedPet)
     {
-      var entity = _tr.ToPetEntity(newPet);
-      var updatedPet = _tr.FromPetEntity(_ctx.Update(entity).Entity);
+      var existingPet = GetPetByIdSpecial(updatedPet.Id);
+      existingPet.Name = updatedPet.Name;
+      existingPet.ColorId = updatedPet.Color.Id;
+      existingPet.Price = updatedPet.Price;
+      var updatedPetResult = _tr.FromPetEntity(_ctx.Update(existingPet).Entity);
       _ctx.SaveChanges();
-      return updatedPet;
+      return updatedPetResult;
     }
     // IS SAVE_CHANGES that important, below old code
     // public Pet UpdatePet(Pet newPet)
@@ -51,9 +55,15 @@ namespace DanyloSoft.PetFinder.Infrastructure.Data.Repos
     //   return _tr.FromPetEntity(_ctx.Update(entity).Entity);
     // }
 
+    public PetEntity GetPetByIdSpecial(int id)
+    {
+      return _ctx.PetTable
+        .FirstOrDefault(c => c.Id == id);
+    }
+    
     public void DeletePet(int Id)
     {
-      var pet = GetPetById(Id);
+      var pet = GetPetByIdSpecial(Id);
       _ctx.Remove(pet);
       _ctx.SaveChanges();
     }
