@@ -54,5 +54,12 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Controllers
       var upPet = _petTypeService.EditPetType(_tr.PutPetType(putPetTypeDto));
       return Ok(_tr.GetPetType(upPet));
     }
+
+    [HttpDelete("{id}")]
+    public ActionResult<GetPetTypeDto> DeletePetType(int id,
+      DeletePetTypeDto deletePetTypeDto)
+    {
+      return _tr.GetPetType(_petTypeService.RemovePetType(_tr.DeletePetType(deletePetTypeDto)));
+    }
   }
 }

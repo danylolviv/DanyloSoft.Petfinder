@@ -18,5 +18,10 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Dto.PetTypes
     {
       return new PetType {Id = putPetTypeDto.Id, Name = putPetTypeDto.NewName};
     }
+
+    public PetType DeletePetType(DeletePetTypeDto deletePetTypeDto)
+    {
+      return new PetType {Id = deletePetTypeDto.Id};
+    }
   }
 }

@@ -21,17 +21,17 @@ namespace DanyloSoft.PetFinder.Domain.Services
 
         public PetType CreatePetType(string newPetType)
         {
-            throw new System.NotImplementedException();
+            return _repo.CreatePetType(newPetType);
         }
 
         public PetType RemovePetType(PetType petTypeToRemove)
         {
-            throw new System.NotImplementedException();
+            return _repo.RemovePetType(petTypeToRemove);
         }
 
-        public PetType EditPetType(PetType petTypeToEdit)
+        public PetType EditPetType(PetType petTypeToRemove)
         {
-            throw new System.NotImplementedException();
+            return _repo.EditPetType(petTypeToRemove);
         }
 
         public IEnumerable<PetType> GetByQuery(string query)

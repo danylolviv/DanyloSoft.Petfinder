@@ -7,7 +7,7 @@ namespace DanyloSoft.PetFinder.Domain.IRepositories
     {
         List<PetType> GetListPetTypes();
         PetType GetById(int id);
-        PetType CreatePetType(PetType newPetType);
+        PetType CreatePetType(string newPetType);
         PetType RemovePetType(PetType petTypeToRemove);
         PetType EditPetType(PetType petTypeToEdit);
         IEnumerable<PetType> GetByQuery(string query);

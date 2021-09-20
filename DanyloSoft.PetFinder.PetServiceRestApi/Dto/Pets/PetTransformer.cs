@@ -9,13 +9,12 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Dto
       Pet pet = new Pet
       {
         Name = postPetDto.Name,
-        Color = new Color
-        {
-          Id = postPetDto.ColorId
-        },
         Price = postPetDto.Price,
         Birthday = postPetDto.Birthday,
-        PetType = new PetType {Id = postPetDto.PetTypeId}
+        
+        PetType = new PetType {Id = postPetDto.PetTypeId},
+        Owner = new Owner{Id = postPetDto.OwnerId},
+        Color = new Color {Id = postPetDto.ColorId}
       };
       return pet;
     }
@@ -42,9 +41,10 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Dto
       GetPetDto pet = new GetPetDto
       {
         Name = petM.Name,
-        ColorId = petM.Color.Id,
-        Price = petM.Price,
-        PetType = petM.PetType.Name
+        ColorName = petM.Color.ColorName,
+        OwnerName = petM.Owner.Name,
+        PetType = petM.PetType.Name,
+        Price = petM.Price
       };
       return pet;
     }

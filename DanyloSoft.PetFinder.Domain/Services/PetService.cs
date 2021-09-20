@@ -11,13 +11,15 @@ namespace DanyloSoft.PetFinder.Domain.Services
         private readonly IPetRepository _repo;
         private readonly IOwnerRepository _owneRepo;
         private readonly IPetTypeRepository _petTypeRepo;
+        private readonly IColorRepository _colorRepo;
 
 
-        public PetService(IPetRepository repo, IOwnerRepository ownerRepository, IPetTypeRepository petTypeRepository)
+        public PetService(IPetRepository repo, IOwnerRepository ownerRepository, IPetTypeRepository petTypeRepository, IColorRepository colorRepository)
         {
             _repo = repo;
             _owneRepo = ownerRepository;
             _petTypeRepo = petTypeRepository;
+            _colorRepo = colorRepository;
         }
 
 
@@ -33,9 +35,17 @@ namespace DanyloSoft.PetFinder.Domain.Services
 
         public Pet CreatePet(Pet newPet)
         {
-            PetType petType = _petTypeRepo.GetById(newPet.PetType.Id);
-            newPet.PetType = petType;
-            return _repo.CreatePet(newPet);
+            // PetType petType = _petTypeRepo.GetById(newPet.PetType.Id);
+            // newPet.PetType = petType;
+            return GetForeignData(_repo.CreatePet(newPet));
+        }
+
+        public Pet GetForeignData(Pet pet)
+        {
+            pet.PetType = _petTypeRepo.GetById(pet.PetType.Id);
+            pet.Owner = _owneRepo.GetById(pet.Owner.Id);
+            pet.Color = _colorRepo.GetColorById(pet.Color.Id);
+            return pet;
         }
 
         public Pet UpdatePet(Pet newPet)

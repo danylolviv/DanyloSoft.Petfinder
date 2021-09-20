@@ -17,7 +17,7 @@ namespace DanyloSoft.PetFinder.Infrastructure.Data.Repos
       _ctx = ctx;
       _tr = new EntityTransformer();
     }
-    
+
     public List<PetType> GetListPetTypes()
     {
       return _ctx.PetTypeTable
@@ -30,19 +30,35 @@ namespace DanyloSoft.PetFinder.Infrastructure.Data.Repos
         .FirstOrDefault(c => c.Id == id));
     }
 
-    public PetType CreatePetType(PetType newPetType)
+    public PetTypeEntity GetByIdSpecial(int id)
     {
-      return _tr.FromPetTypeEntity(_ctx.Add(_tr.ToPetTypeEntity(newPetType)).Entity);
+      return _ctx.PetTypeTable
+        .FirstOrDefault(c => c.Id == id);
+    }
+    
+    public PetType CreatePetType(string newPetType)
+    {
+      PetTypeEntity ptE = new PetTypeEntity {Name = newPetType};
+      var createdPetType = _tr.FromPetTypeEntity(_ctx.Add(ptE).Entity);
+      _ctx.SaveChanges();
+      return createdPetType;
     }
 
     public PetType RemovePetType(PetType petTypeToRemove)
     {
-      throw new System.NotImplementedException();
+      var deletedEntity =
+        _ctx.PetTypeTable.Remove(GetByIdSpecial(petTypeToRemove.Id)).Entity;
+      _ctx.SaveChanges();
+      return _tr.FromPetTypeEntity(deletedEntity);
     }
 
     public PetType EditPetType(PetType petTypeToEdit)
     {
-      return _tr.FromPetTypeEntity(_ctx.Update(_tr.ToPetTypeEntity(petTypeToEdit)).Entity);
+      var existingProp = GetByIdSpecial(petTypeToEdit.Id);
+      existingProp.Name = petTypeToEdit.Name;
+      var updatedProp = _tr.FromPetTypeEntity(_ctx.Update(existingProp).Entity);
+      _ctx.SaveChanges();
+      return updatedProp;
     }
 
     
