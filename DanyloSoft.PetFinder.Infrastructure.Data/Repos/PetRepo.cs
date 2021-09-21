@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using DanyloSoft.PetFinder.Core.Models;
 using DanyloSoft.PetFinder.Domain.IRepositories;
 using DanyloSoft.PetFinder.Infrastructure.Data.Entities;
 using DanyloSoft.PetFinder.Infrastructure.Data.Entities.Transformers;
+using Microsoft.EntityFrameworkCore;
 
 namespace DanyloSoft.PetFinder.Infrastructure.Data.Repos
 {
@@ -27,14 +29,20 @@ namespace DanyloSoft.PetFinder.Infrastructure.Data.Repos
     public Pet GetPetById(int id)
     {
       return _tr.FromPetEntity(_ctx.PetTable
+        .Include(p => p.PetType)
         .FirstOrDefault(c => c.Id == id));
     }
 
     public Pet CreatePet(Pet newPet)
     {
       var entity = _tr.ToPetEntity(newPet);
-      var createdPet = _tr.FromPetEntity(_ctx.Add(entity).Entity);
+      var entitySaved =  _ctx.Add(entity).Entity;
       _ctx.SaveChanges();
+      var entityFoundWithRelation = _ctx.PetTable
+        .Include(p => p.PetType)
+        .ThenInclude(pt => pt.Owner)
+        .FirstOrDefault(p => p.Id == entitySaved.Id); 
+      var createdPet = _tr.FromPetEntity(entityFoundWithRelation);
       return createdPet;
     }
 

@@ -43,7 +43,7 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Controllers
     public ActionResult<GetPetDto> GetPetById(int id)
     {
       var answer = _tr.GetPet(_petService.GetPetById(id));
-      if (answer != null)
+      if (answer != null )
       {
         return Ok(answer);
       }

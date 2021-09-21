@@ -26,11 +26,7 @@ namespace DanyloSoft.PetFinder.Domain.Services
         public IEnumerable<Pet> GetAllPets()
         {
             IEnumerable<Pet> list = _repo.GetPets();
-            foreach (var pet in list)
-            {
-                GetForeignData(pet);
-            }
-           return list;
+            return list;
         }
 
         public Pet GetPetById(int id)
@@ -42,20 +38,14 @@ namespace DanyloSoft.PetFinder.Domain.Services
         {
             // PetType petType = _petTypeRepo.GetById(newPet.PetType.Id);
             // newPet.PetType = petType;
-            return GetForeignData(_repo.CreatePet(newPet));
+            return _repo.CreatePet(newPet);
         }
 
-        public Pet GetForeignData(Pet pet)
-        {
-            pet.PetType = _petTypeRepo.GetById(pet.PetType.Id);
-            pet.Owner = _owneRepo.GetById(pet.Owner.Id);
-            pet.Color = _colorRepo.GetColorById(pet.Color.Id);
-            return pet;
-        }
+        
 
         public Pet UpdatePet(Pet newPet)
         {
-            return GetForeignData(_repo.UpdatePet(newPet));
+            return _repo.UpdatePet(newPet);
         }
 
         public IEnumerable<Pet> GetOrderedListPets(int orderType)

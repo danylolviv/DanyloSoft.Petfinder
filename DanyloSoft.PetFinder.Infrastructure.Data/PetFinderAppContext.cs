@@ -16,6 +16,10 @@ namespace DanyloSoft.PetFinder.Infrastructure.Data
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+
+      modelBuilder.Entity<PetEntity>().HasOne(p => p.PetType)
+        .WithMany(pt => pt.Pets).HasForeignKey(p => p.PetTypeId);
+      
       modelBuilder.Entity<PetTypeEntity>().HasData(new PetTypeEntity {Id = 1, Name = "Dog"});
       modelBuilder.Entity<PetTypeEntity>().HasData(new PetTypeEntity {Id = 2, Name = "Cat"});
       modelBuilder.Entity<PetTypeEntity>().HasData(new PetTypeEntity {Id = 3, Name = "Zebra"});

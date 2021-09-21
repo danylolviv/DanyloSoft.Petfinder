@@ -1,4 +1,5 @@
 using System;
+using DanyloSoft.PetFinder.Core.Models;
 
 namespace DanyloSoft.PetFinder.Infrastructure.Data.Entities
 {
@@ -12,6 +13,7 @@ namespace DanyloSoft.PetFinder.Infrastructure.Data.Entities
     
     
     public int PetTypeId { get; set; }
+    public PetTypeEntity PetType { get; set; }
     public int OwnerId { get; set; }
     public int ColorId { get; set; }
   }
