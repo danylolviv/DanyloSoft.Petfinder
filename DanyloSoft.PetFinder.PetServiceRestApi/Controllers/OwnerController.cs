@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using DanyloSoft.PetFinder.Core.IServices;
+using DanyloSoft.PetFinder.Core.Models;
 using DanyloSoft.PetFinder.PetServiceRestApi.Dto.Owners;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,10 +34,17 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Controllers
       return listOwners;
     }
 
+    // [HttpGet("{id}")]
+    // public ActionResult<GetOwnerDto> GetOwnerById(int id)
+    // {
+    //   return _tr.GetOwner(_ownerService.GetById(id));
+    // }
+
     [HttpGet("{id}")]
-    public ActionResult<GetOwnerDto> GetOwnerById(int id)
+    public Owner GetOwnerWithPets(int id)
     {
-      return _tr.GetOwner(_ownerService.GetById(id));
+      var bruh = _ownerService.GetOwnerWithPets(id);
+      return bruh;
     }
 
     [HttpPost]

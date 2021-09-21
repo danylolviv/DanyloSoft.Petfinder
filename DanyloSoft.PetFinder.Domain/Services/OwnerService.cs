@@ -23,6 +23,11 @@ namespace DanyloSoft.PetFinder.Domain.Services
       return _repo.getAllOwners();
     }
 
+    public Owner GetOwnerWithPets(int id)
+    {
+      return _repo.GetOwnerWithPets(id);
+    }
+
     public Owner UpdateOwner(Owner updatedOwner)
     {
       return _repo.UpdateOwner(updatedOwner);

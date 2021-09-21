@@ -23,7 +23,7 @@ namespace DanyloSoft.PetFinder.Infrastructure.Data.Repos
     public List<Pet> GetPets()
     {
       return _ctx.PetTable
-        .Select(entity =>  _tr.FromPetEntity(entity) ).ToList();
+        .Select(entity =>  _tr.FromPetEntitySimple(entity) ).ToList();
     }
 
     public Pet GetPetById(int id)
@@ -40,8 +40,9 @@ namespace DanyloSoft.PetFinder.Infrastructure.Data.Repos
       _ctx.SaveChanges();
       var entityFoundWithRelation = _ctx.PetTable
         .Include(p => p.PetType)
-        .ThenInclude(pt => pt.Owner)
-        .FirstOrDefault(p => p.Id == entitySaved.Id); 
+        .Include(r => r.Color)
+        .Include(m => m.Owner)
+        .FirstOrDefault(c => c.Id == entitySaved.Id);
       var createdPet = _tr.FromPetEntity(entityFoundWithRelation);
       return createdPet;
     }
@@ -52,7 +53,7 @@ namespace DanyloSoft.PetFinder.Infrastructure.Data.Repos
       existingPet.Name = updatedPet.Name;
       existingPet.ColorId = updatedPet.Color.Id;
       existingPet.Price = updatedPet.Price;
-      var updatedPetResult = _tr.FromPetEntity(_ctx.Update(existingPet).Entity);
+      var updatedPetResult = _tr.FromPetEntitySimple(_ctx.Update(existingPet).Entity);
       _ctx.SaveChanges();
       return updatedPetResult;
     }

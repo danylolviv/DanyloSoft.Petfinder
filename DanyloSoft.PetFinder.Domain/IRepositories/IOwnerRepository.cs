@@ -7,6 +7,7 @@ namespace DanyloSoft.PetFinder.Domain.IRepositories
   {
     Owner CreateOwner(Owner newOwner);
     IEnumerable<Owner> getAllOwners();
+    Owner GetOwnerWithPets(int id);
     Owner UpdateOwner(Owner updatedOwner);
     Owner DeleteOwner(int id);
     Owner GetById(int id);

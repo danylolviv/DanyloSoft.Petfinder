@@ -4,6 +4,7 @@ using DanyloSoft.PetFinder.Core.Models;
 using DanyloSoft.PetFinder.Domain.IRepositories;
 using DanyloSoft.PetFinder.Infrastructure.Data.Entities;
 using DanyloSoft.PetFinder.Infrastructure.Data.Entities.Transformers;
+using Microsoft.EntityFrameworkCore;
 
 namespace DanyloSoft.PetFinder.Infrastructure.Data.Repos
 {
@@ -29,6 +30,15 @@ namespace DanyloSoft.PetFinder.Infrastructure.Data.Repos
     {
       return _ctx.OwnerTable
         .Select(c => _tr.FromOwnerEntity(c));
+    }
+
+    public Owner GetOwnerWithPets(int id)
+    {
+      var magic = _ctx.OwnerTable
+        .Include(o => o.ListPets)
+        .FirstOrDefault(c => c.Id == id);
+      var magicOwner = _tr.Special(magic);
+      return magicOwner;
     }
 
     public Owner UpdateOwner(Owner updatedOwner)

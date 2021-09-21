@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using DanyloSoft.PetFinder.Core.Models;
 
 namespace DanyloSoft.PetFinder.Infrastructure.Data.Entities.Transformers
@@ -65,6 +66,21 @@ namespace DanyloSoft.PetFinder.Infrastructure.Data.Entities.Transformers
       return petEntity;
     }
     
+    public Pet FromPetEntitySimple(PetEntity petEntity)
+    {
+      Pet pet = new Pet
+      {
+        Id = petEntity.Id,
+        Name = petEntity.Name,
+        Birthday = petEntity.Birthday,
+        SellOutDate = petEntity.SellOutDate,
+        Price = petEntity.Price,
+        PetType = new PetType{Id = petEntity.PetTypeId} ,
+        Owner = new Owner{Id = petEntity.OwnerId},
+        Color = new Color{Id = petEntity.ColorId}
+      };
+      return pet;
+    }
     public Pet FromPetEntity(PetEntity petEntity)
     {
       Pet pet = new Pet
@@ -74,10 +90,9 @@ namespace DanyloSoft.PetFinder.Infrastructure.Data.Entities.Transformers
         Birthday = petEntity.Birthday,
         SellOutDate = petEntity.SellOutDate,
         Price = petEntity.Price,
-        
-        PetType = new PetType{Id = petEntity.PetTypeId},
-        Owner = new Owner{Id = petEntity.OwnerId},
-        Color = new Color{Id = petEntity.ColorId}
+        PetType = new PetType{Id = petEntity.PetType.Id, Name = petEntity.PetType.Name} ,
+        Owner = new Owner{Id = petEntity.Owner.Id, Name = petEntity.Owner.Name},
+        Color = new Color{Id = petEntity.Color.Id, ColorName = petEntity.Color.ColorName}
       };
       return pet;
     }
@@ -100,6 +115,27 @@ namespace DanyloSoft.PetFinder.Infrastructure.Data.Entities.Transformers
         Name = petTypeEntity.Name
       };
       return petType;
+    }
+
+    public Owner Special(OwnerEntity magic)
+    {
+      List<Pet> listPets = new List<Pet>();
+      foreach (var petEntity in magic.ListPets)
+      {
+        listPets.Add(new Pet
+        {
+          Name = petEntity.Name,
+          PetType = new PetType{Id = petEntity.PetTypeId} 
+        });
+      }
+      Owner newOwner = new Owner
+      {
+        Name = magic.Name,
+        OwnersPets = listPets,
+        Address = magic.Address,
+        Age = magic.Age,
+      };
+      return newOwner;
     }
   }
 }
