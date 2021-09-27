@@ -10,5 +10,6 @@ namespace DanyloSoft.PetFinder.Core.IServices
     Color CreateColor(string colorName);
     Color DeleteColor(int id);
     Color UpdateColor(Color updatedColor);
+    List<Pet> GetPetsByColorId(int id);
   }
 }

@@ -4,3 +4,6 @@ there as getAllPets is really inefficient if you start talking about bigger data
 Adding converters to move between layers with the entities that are fitting the layers.
 
 Q1 Problem with return types for getAllPets/Owners/PetTypes
+
+
+https://localhost:5001/swagger/index.html

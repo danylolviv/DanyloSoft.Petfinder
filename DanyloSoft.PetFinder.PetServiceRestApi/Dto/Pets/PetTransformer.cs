@@ -1,4 +1,5 @@
 using DanyloSoft.PetFinder.Core.Models;
+using DanyloSoft.PetFinder.PetServiceRestApi.Dto.PetTypes;
 
 namespace DanyloSoft.PetFinder.PetServiceRestApi.Dto
 {
@@ -47,6 +48,18 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Dto
         Price = petM.Price
       };
       return pet;
+    }
+
+    public GetPetDto_Simple GetPetSimple(Pet pet)
+    {
+      return new GetPetDto_Simple()
+      {
+        Id = pet.Id,
+        Name = pet.Name,
+        BirthDay = pet.Birthday,
+        PetType = new GetPetTypeDto(){Name = pet.PetType.Name},
+        Price = pet.Price
+      };
     }
   }
 }

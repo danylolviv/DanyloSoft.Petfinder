@@ -37,5 +37,10 @@ namespace DanyloSoft.PetFinder.Domain.Services
     {
       return _repo.UpdateColor(updatedColor);
     }
+
+    public List<Pet> GetPetsByColorId(int id)
+    {
+      return _repo.GetPetsByColorId(id);
+    }
   }
 }

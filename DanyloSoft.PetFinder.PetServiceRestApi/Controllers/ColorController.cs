@@ -38,10 +38,22 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Controllers
     }
     
 
+    // [HttpGet("{id}")]
+    // public GetColorDto GetColorById(int id)
+    // {
+    //   return _tr.GetColorTrans(_service.GetColorById(id));
+    // }
+    
     [HttpGet("{id}")]
-    public GetColorDto GetColorById(int id)
+    public List<GetPetsByColorDto> GetPetsByColorId(int id)
     {
-      return _tr.GetColorTrans(_service.GetColorById(id));
+      var listPetColorSearchDto = new List<GetPetsByColorDto>();
+      var listPets = _service.GetPetsByColorId(id);
+      foreach (var pet in listPets)
+      {
+        listPetColorSearchDto.Add(_tr.GetPetsByColor(pet));
+      }
+      return listPetColorSearchDto;
     }
     
     [HttpPost]

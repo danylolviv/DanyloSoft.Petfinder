@@ -11,5 +11,6 @@ namespace DanyloSoft.PetFinder.Core.IServices
         PetType RemovePetType(PetType petTypeToRemove);
         PetType EditPetType(PetType petTypeToEdit);
         IEnumerable<PetType> GetByQuery(string query);
+        List<Pet> GGetPetsByPetType(int petTypeId);
     }
 }

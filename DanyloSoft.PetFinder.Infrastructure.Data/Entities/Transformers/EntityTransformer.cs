@@ -130,12 +130,46 @@ namespace DanyloSoft.PetFinder.Infrastructure.Data.Entities.Transformers
       }
       Owner newOwner = new Owner
       {
+        Id = magic.Id,
         Name = magic.Name,
         OwnersPets = listPets,
         Address = magic.Address,
         Age = magic.Age,
       };
       return newOwner;
+    }
+
+    public Pet FromPetEntityGetPets(PetEntity petEntity)
+    {
+      Pet pet = new Pet
+      {
+        Id = petEntity.Id,
+        Name = petEntity.Name,
+        Birthday = petEntity.Birthday,
+        Price = petEntity.Price,
+        PetType = new PetType{Name = petEntity.PetType.Name} ,
+      };
+      return pet;
+    }
+
+    public Pet ForPetTypeSearch(PetEntity petEntity)
+    {
+      return new Pet()
+      {
+        Id = petEntity.Id,
+        Name = petEntity.Name,
+        PetType = new PetType(){Id = petEntity.PetType.Id, Name = petEntity.PetType.Name}
+      };
+    }
+    
+    public Pet ForPetColorSearch(PetEntity petEntity)
+    {
+      return new Pet()
+      {
+        Id = petEntity.Id,
+        Name = petEntity.Name,
+        Color = new Color(){Id = petEntity.Color.Id, ColorName = petEntity.Color.ColorName}
+      };
     }
   }
 }

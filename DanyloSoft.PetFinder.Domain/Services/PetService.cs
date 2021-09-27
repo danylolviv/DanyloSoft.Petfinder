@@ -31,7 +31,8 @@ namespace DanyloSoft.PetFinder.Domain.Services
 
         public Pet GetPetById(int id)
         {
-            return _repo.GetPetById(id);
+            var pet = _repo.GetPetById(id);
+            return pet;
         }
 
         public Pet CreatePet(Pet newPet)

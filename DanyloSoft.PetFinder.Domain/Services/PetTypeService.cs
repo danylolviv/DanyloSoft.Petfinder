@@ -38,5 +38,10 @@ namespace DanyloSoft.PetFinder.Domain.Services
         {
             return _repo.GetByQuery(query);
         }
+
+        public List<Pet> GGetPetsByPetType(int petTypeId)
+        {
+            return _repo.GetPetsByPetType(petTypeId);
+        }
     }
 }

@@ -19,6 +19,12 @@ namespace DanyloSoft.PetFinder.Infrastructure.Data
 
       modelBuilder.Entity<PetEntity>().HasOne(p => p.PetType)
         .WithMany(pt => pt.Pets).HasForeignKey(p => p.PetTypeId);
+
+      modelBuilder.Entity<PetEntity>()
+        .HasOne(v => v.PetType)
+        .WithMany(p => p.Pets)
+        .HasForeignKey(f => new {f.PetTypeId})
+        .OnDelete(DeleteBehavior.SetNull);
       
       modelBuilder.Entity<PetTypeEntity>().HasData(new PetTypeEntity {Id = 1, Name = "Dog"});
       modelBuilder.Entity<PetTypeEntity>().HasData(new PetTypeEntity {Id = 2, Name = "Cat"});

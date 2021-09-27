@@ -4,6 +4,7 @@ using DanyloSoft.PetFinder.Core.Models;
 using DanyloSoft.PetFinder.Domain.IRepositories;
 using DanyloSoft.PetFinder.Infrastructure.Data.Entities;
 using DanyloSoft.PetFinder.Infrastructure.Data.Entities.Transformers;
+using Microsoft.EntityFrameworkCore;
 
 namespace DanyloSoft.PetFinder.Infrastructure.Data.Repos
 {
@@ -56,6 +57,18 @@ namespace DanyloSoft.PetFinder.Infrastructure.Data.Repos
         _ctx.Update(existingEntity).Entity);
       _ctx.SaveChanges();
       return updatedColorV;
+    }
+
+    public List<Pet> GetPetsByColorId(int id)
+    {
+      var listPets = new List<Pet>();
+      var ListEnt = _ctx.PetTable.Include(c => c.Color).Select(p => p)
+        .Where(p => p.ColorId == id);
+      foreach (var petEntity in ListEnt)
+      {
+        listPets.Add(_tr.ForPetColorSearch(petEntity));
+      }
+      return listPets;
     }
     // WHY THIS NO WORKIE LARS!?
     // var updatedColorV = _tr.FromColorEntity(

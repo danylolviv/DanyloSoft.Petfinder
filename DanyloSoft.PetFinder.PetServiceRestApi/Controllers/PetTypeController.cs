@@ -31,15 +31,26 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Controllers
       return listPetTypes;
     }
 
-    [HttpGet("{query}")]
-    public ActionResult<List<GetPetTypeDto>> GetPetTypesQuery(string query)
+    // [HttpGet("{query}")]
+    // public ActionResult<List<GetPetTypeDto>> GetPetTypesQuery(string query)
+    // {
+    //   var listPetTypes = new List<GetPetTypeDto>();
+    //   foreach (var petType in _petTypeService.GetByQuery(query))
+    //   {
+    //     listPetTypes.Add(_tr.GetPetType(petType));
+    //   }
+    //   return Ok(listPetTypes);
+    // }
+
+    [HttpGet("{id}")]
+    public ActionResult<List<GetPetsByPetTypeDto>> GetPetsByPetType(int id)
     {
-      var listPetTypes = new List<GetPetTypeDto>();
-      foreach (var petType in _petTypeService.GetByQuery(query))
+      var listDTOs = new List<GetPetsByPetTypeDto>();
+      foreach (var pet in _petTypeService.GGetPetsByPetType(id))
       {
-        listPetTypes.Add(_tr.GetPetType(petType));
+        listDTOs.Add(_tr.GetPetsByPetType(pet));
       }
-      return Ok(listPetTypes);
+      return listDTOs;
     }
 
     [HttpPost]

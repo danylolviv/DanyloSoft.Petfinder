@@ -4,6 +4,7 @@ using DanyloSoft.PetFinder.Core.Models;
 using DanyloSoft.PetFinder.Domain.IRepositories;
 using DanyloSoft.PetFinder.Infrastructure.Data.Entities;
 using DanyloSoft.PetFinder.Infrastructure.Data.Entities.Transformers;
+using Microsoft.EntityFrameworkCore;
 
 namespace DanyloSoft.PetFinder.Infrastructure.Data.Repos
 {
@@ -81,6 +82,19 @@ namespace DanyloSoft.PetFinder.Infrastructure.Data.Repos
         }
       }
       return matchingList;
+    }
+
+    public List<Pet> GetPetsByPetType(int petTypeId)
+    {
+      var listPets = new List<Pet>();
+      var mL = _ctx.PetTable.Include(pT => pT.PetType).Select(p => p)
+        .Where(p => p.PetTypeId == petTypeId);
+      foreach (var petEntity in mL)
+      {
+        listPets.Add(_tr.ForPetTypeSearch(petEntity));
+      }
+
+      return listPets;
     }
   }
 }

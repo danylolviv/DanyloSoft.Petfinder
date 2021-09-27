@@ -25,18 +25,18 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Controllers
     }
 
     [HttpGet]
-    public ActionResult<List<GetPetDto>> GetAllPets()
+    public ActionResult<List<GetPetDto_Simple>> GetAllPets()
     {
-      var listPets = new List<GetPetDto>();
+      var listPets = new List<GetPetDto_Simple>();
       foreach (var pet in _petService.GetAllPets())
       {
-        listPets.Add(_tr.GetPet(pet));
+        listPets.Add(_tr.GetPetSimple(pet));
       }
       if (listPets != null)
       {
         return Ok(listPets); 
       }
-      return BadRequest("Something no workie.");
+      return BadRequest("Something no workie or most likely no pets in repo");
     }
     
     [HttpGet("{id}")]
@@ -47,7 +47,7 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Controllers
       {
         return Ok(answer);
       }
-      return BadRequest("Something no workie.");
+      return BadRequest("Something no workie or most likely no pet with id in repo");
     }
 
     [HttpPost]
@@ -83,6 +83,8 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Controllers
       }
       return Ok(_tr.GetPet(_petService.DeletePet(id)));
     }
+    
+    
     
     //WHY WHY WHY!!!!!??????
     
