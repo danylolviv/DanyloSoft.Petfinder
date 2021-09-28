@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using DanyloSoft.PetFinder.Core.Filters;
 using DanyloSoft.PetFinder.Core.Models;
 
 namespace DanyloSoft.PetFinder.Core.IServices
@@ -14,7 +15,7 @@ namespace DanyloSoft.PetFinder.Core.IServices
         /// </summary>
         
 
-        IEnumerable<Pet> GetAllPets();
+        IEnumerable<Pet> GetAllPets(Filter filter);
 
         Pet GetPetById(int id);
 
@@ -24,5 +25,6 @@ namespace DanyloSoft.PetFinder.Core.IServices
         Pet DeletePet(int Id);
 
         List<Pet> GetPetsByOwnerId(int ownerId);
+        int GetPetCount();
     }
 }

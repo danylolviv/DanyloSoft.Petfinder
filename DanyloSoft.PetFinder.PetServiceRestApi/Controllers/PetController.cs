@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DanyloSoft.PetFinder.Core.Filters;
 using DanyloSoft.PetFinder.Core.IServices;
 using DanyloSoft.PetFinder.Core.Models;
 using DanyloSoft.PetFinder.PetServiceRestApi.Dto;
@@ -25,10 +26,11 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Controllers
     }
 
     [HttpGet]
-    public ActionResult<List<GetPetDto_Simple>> GetAllPets()
+    public ActionResult<List<GetPetDto_Simple>> GetAllPets([FromQuery]Filter filter)
     {
       var listPets = new List<GetPetDto_Simple>();
-      foreach (var pet in _petService.GetAllPets())
+      int resCount = _petService.GetPetCount();
+      foreach (var pet in _petService.GetAllPets(filter))
       {
         listPets.Add(_tr.GetPetSimple(pet));
       }
@@ -36,9 +38,10 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Controllers
       {
         return Ok(listPets); 
       }
+      //What is happening
       return BadRequest("Something no workie or most likely no pets in repo");
     }
-    
+
     [HttpGet("{id}")]
     public ActionResult<GetPetDto> GetPetById(int id)
     {

@@ -25,6 +25,9 @@ namespace DanyloSoft.PetFinder.Infrastructure.Data
         .WithMany(p => p.Pets)
         .HasForeignKey(f => new {f.PetTypeId})
         .OnDelete(DeleteBehavior.SetNull);
+
+      modelBuilder.Entity<PetEntity>().HasOne(o => o.Owner)
+        .WithMany(pt => pt.ListPets).HasForeignKey(p => p.OwnerId);
       
       modelBuilder.Entity<PetTypeEntity>().HasData(new PetTypeEntity {Id = 1, Name = "Dog"});
       modelBuilder.Entity<PetTypeEntity>().HasData(new PetTypeEntity {Id = 2, Name = "Cat"});
@@ -39,6 +42,19 @@ namespace DanyloSoft.PetFinder.Infrastructure.Data
         {Id = 2, Name = "Winston", Address = "Burton Ave.",Age = 17});
       modelBuilder.Entity<OwnerEntity>().HasData(new OwnerEntity 
         {Id = 3, Name = "Salma", Address = "Crossroad", Age = 17});
+
+      for (int i = 1; i < 1000; i++)
+      {
+        modelBuilder.Entity<PetEntity>().HasData(new PetEntity()
+        {
+          Id = i, 
+          Name = "Oof" + i, 
+          ColorId = 1, 
+          OwnerId = 1, 
+          PetTypeId = 1,
+          Price = 69+i
+        });
+      }
     }
 
     public DbSet<PetEntity> PetTable { get; set; }

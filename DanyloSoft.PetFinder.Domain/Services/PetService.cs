@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using DanyloSoft.PetFinder.Core.Filters;
 using DanyloSoft.PetFinder.Core.IServices;
 using DanyloSoft.PetFinder.Core.Models;
 using DanyloSoft.PetFinder.Domain.IRepositories;
@@ -23,9 +24,9 @@ namespace DanyloSoft.PetFinder.Domain.Services
         }
 
 
-        public IEnumerable<Pet> GetAllPets()
+        public IEnumerable<Pet> GetAllPets(Filter filter)
         {
-            IEnumerable<Pet> list = _repo.GetPets();
+            IEnumerable<Pet> list = _repo.GetPets(filter);
             return list;
         }
 
@@ -65,6 +66,11 @@ namespace DanyloSoft.PetFinder.Domain.Services
         {
             var owner = _owneRepo.GetById(ownerId);
             return owner.OwnersPets;
+        }
+
+        public int GetPetCount()
+        {
+            return _repo.GetPetCount();
         }
     }
 }

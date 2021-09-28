@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DanyloSoft.PetFinder.Core.Filters;
 using DanyloSoft.PetFinder.Core.Models;
 using DanyloSoft.PetFinder.Domain.IRepositories;
 using DanyloSoft.PetFinder.Infrastructure.Data.Entities;
@@ -21,13 +22,15 @@ namespace DanyloSoft.PetFinder.Infrastructure.Data.Repos
       _tr = new EntityTransformer();
     }
 
-    public List<Pet> GetPets()
+    public List<Pet> GetPets(Filter filter)
     {
       var myListmodel = new List<Pet>();
       // For trolling purposes only, do not repeat at home!!!!
       foreach (var petEntity in _ctx.PetTable
         .Include(pT => pT.PetType)
         .Select(entity => entity)
+        .Skip(filter.Count * (filter.Page - 1))
+        .Take(filter.Count)
         .ToList())
       {
         myListmodel.Add(_tr.FromPetEntityGetPets(petEntity));
@@ -83,6 +86,11 @@ namespace DanyloSoft.PetFinder.Infrastructure.Data.Repos
       _ctx.SaveChanges();
     }
 
+    public int GetPetCount()
+    {
+      return _ctx.PetTable.Count();
+    }
+
     #region Sorting algorithms
 
     public IEnumerable<Pet> GetOrderedListPets(int searchQuery)
@@ -96,9 +104,9 @@ namespace DanyloSoft.PetFinder.Infrastructure.Data.Repos
         case 3:
           return Get5Cheapest();
         case 4:
-          return GetPets();
+          return GetPets(new Filter(){Count = 10});
       }
-      return GetPets();
+      return GetPets(new Filter(){Count = 10});
     }
 
     public List<Pet> Get5Cheapest()

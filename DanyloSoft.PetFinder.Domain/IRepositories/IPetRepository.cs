@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using DanyloSoft.PetFinder.Core.Filters;
 using DanyloSoft.PetFinder.Core.Models;
 
 namespace DanyloSoft.PetFinder.Domain.IRepositories
@@ -11,10 +12,11 @@ namespace DanyloSoft.PetFinder.Domain.IRepositories
         ///    This should be ideally taken out into a different filtering class.
         ///    But for now this will be here knowing this.  
         /// </summary>
-        List<Pet> GetPets();
+        List<Pet> GetPets(Filter filter);
         IEnumerable<Pet> GetOrderedListPets(int searchQuery);
         Pet GetPetById(int id);
         Pet UpdatePet(Pet oldPet);
-        void DeletePet(int Id);    
+        void DeletePet(int Id);
+        int GetPetCount();
     }
 }
