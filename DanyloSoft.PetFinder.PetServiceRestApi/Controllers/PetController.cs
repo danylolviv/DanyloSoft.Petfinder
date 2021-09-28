@@ -6,6 +6,7 @@ using DanyloSoft.PetFinder.Core.Filters;
 using DanyloSoft.PetFinder.Core.IServices;
 using DanyloSoft.PetFinder.Core.Models;
 using DanyloSoft.PetFinder.PetServiceRestApi.Dto;
+using DanyloSoft.PetFinder.PetServiceRestApi.Dto.PetTypes;
 using DanyloSoft.PetFinder.PetServiceRestApi.Dto.Transformers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -26,20 +27,37 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Controllers
     }
 
     [HttpGet]
-    public ActionResult<List<GetPetDto_Simple>> GetAllPets([FromQuery]Filter filter)
+    public ActionResult<GetAllPetsDto> GetAllPets([FromQuery]Filter filter)
     {
-      var listPets = new List<GetPetDto_Simple>();
+      //var listPets = new List<GetPetDto_Simple>();
+      
       int resCount = _petService.GetPetCount();
-      foreach (var pet in _petService.GetAllPets(filter))
-      {
-        listPets.Add(_tr.GetPetSimple(pet));
-      }
-      if (listPets != null)
-      {
-        return Ok(listPets); 
-      }
-      //What is happening
-      return BadRequest("Something no workie or most likely no pets in repo");
+      List<GetPetDto_Simple> getPetDtoSimpleList = _petService.GetAllPets(filter)
+        .Select(s => new GetPetDto_Simple()
+        {
+          BirthDay = s.Birthday,
+          Id = s.Id,
+          Name = s.Name,
+          PetType = new GetPetTypeDto() {Name = s.PetType.Name},
+          Price = s.Price
+        }).ToList();
+
+      return new GetAllPetsDto()
+        {ListPets = getPetDtoSimpleList, PetCount = resCount};
+      
+      
+      
+      
+      // foreach (var pet in _petService.GetAllPets(filter))
+      // {
+      //   listPets.Add(_tr.GetPetSimple(pet));
+      // }
+      // if (listPets != null)
+      // {
+      //   return Ok(listPets); 
+      // }
+      // //What is happening
+      // return BadRequest("Something no workie or most likely no pets in repo");
     }
 
     [HttpGet("{id}")]
