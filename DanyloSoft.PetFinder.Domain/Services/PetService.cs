@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using DanyloSoft.PetFinder.Core.Filters;
@@ -26,6 +27,10 @@ namespace DanyloSoft.PetFinder.Domain.Services
 
         public IEnumerable<Pet> GetAllPets(Filter filter)
         {
+            if (filter.Count <= 0 || filter.Count >500)
+            {
+                throw new ArgumentException("You need to but in a filter ranging 0 - 500");
+            }
             IEnumerable<Pet> list = _repo.GetPets(filter);
             return list;
         }

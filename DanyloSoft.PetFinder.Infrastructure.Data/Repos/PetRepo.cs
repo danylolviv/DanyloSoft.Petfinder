@@ -41,11 +41,20 @@ namespace DanyloSoft.PetFinder.Infrastructure.Data.Repos
 
     public Pet GetPetById(int id)
     {
-      return _tr.FromPetEntity(_ctx.PetTable
+      
+      // Lars' dope af code Passing the method into the select statement. 
+      
+      return _ctx.PetTable
         .Include(p => p.PetType)
         .Include(o => o.Owner)
         .Include(c => c.Color)
-        .FirstOrDefault(c => c.Id == id));
+        .Select(_tr.FromPetEntity)
+        .FirstOrDefault(p => p.Id == id);
+      /*return _tr.FromPetEntity(_ctx.PetTable
+        .Include(p => p.PetType)
+        .Include(o => o.Owner)
+        .Include(c => c.Color)
+        .FirstOrDefault(c => c.Id == id));*/
     }
 
     public Pet CreatePet(Pet newPet)

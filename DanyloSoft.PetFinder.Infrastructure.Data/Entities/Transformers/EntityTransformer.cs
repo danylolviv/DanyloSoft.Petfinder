@@ -86,10 +86,10 @@ namespace DanyloSoft.PetFinder.Infrastructure.Data.Entities.Transformers
       Pet pet = new Pet
       {
         Id = petEntity.Id,
-        Name = petEntity.Name,
-        Birthday = petEntity.Birthday,
+        //Name = petEntity.Name,
+        //Birthday = petEntity.Birthday,
         SellOutDate = petEntity.SellOutDate,
-        Price = petEntity.Price,
+        //Price = petEntity.Price,
         PetType = new PetType{Id = petEntity.PetType.Id, Name = petEntity.PetType.Name} ,
         Owner = new Owner{Id = petEntity.Owner.Id, Name = petEntity.Owner.Name},
         Color = new Color{Id = petEntity.Color.Id, ColorName = petEntity.Color.ColorName}

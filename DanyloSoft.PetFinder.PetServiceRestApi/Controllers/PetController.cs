@@ -30,20 +30,27 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Controllers
     public ActionResult<GetAllPetsDto> GetAllPets([FromQuery]Filter filter)
     {
       //var listPets = new List<GetPetDto_Simple>();
-      
-      int resCount = _petService.GetPetCount();
-      List<GetPetDto_Simple> getPetDtoSimpleList = _petService.GetAllPets(filter)
-        .Select(s => new GetPetDto_Simple()
-        {
-          BirthDay = s.Birthday,
-          Id = s.Id,
-          Name = s.Name,
-          PetType = new GetPetTypeDto() {Name = s.PetType.Name},
-          Price = s.Price
-        }).ToList();
+      try
+      {
+        int resCount = _petService.GetPetCount();
+        List<GetPetDto_Simple> getPetDtoSimpleList = _petService.GetAllPets(filter)
+          .Select(s => new GetPetDto_Simple()
+          {
+            BirthDay = s.Birthday,
+            Id = s.Id,
+            Name = s.Name,
+            PetType = new GetPetTypeDto() {Name = s.PetType.Name},
+            Price = s.Price
+          }).ToList();
+        return new GetAllPetsDto()
+          {ListPets = getPetDtoSimpleList, PetCount = resCount};
+      }
+      catch (ArgumentException e)
+      {
+        return BadRequest("Something no workie or most likely no pet with id in repo");
+      }
 
-      return new GetAllPetsDto()
-        {ListPets = getPetDtoSimpleList, PetCount = resCount};
+      
       
       
       

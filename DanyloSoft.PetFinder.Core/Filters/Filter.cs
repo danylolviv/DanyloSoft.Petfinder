@@ -4,5 +4,6 @@ namespace DanyloSoft.PetFinder.Core.Filters
   {
     public int Count { get; set; }
     public int Page { get; set; }
+    public string OrderBy { get; set; }
   }
 }
