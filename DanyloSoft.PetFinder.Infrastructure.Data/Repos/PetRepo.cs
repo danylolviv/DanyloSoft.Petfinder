@@ -24,14 +24,53 @@ namespace DanyloSoft.PetFinder.Infrastructure.Data.Repos
 
     public List<Pet> GetPets(Filter filter)
     {
+      /* For now since the data aount is not large we can use 
+        .Select(_tr.FromPetEntityGetPets);, but need to keep in mind
+        that this way there might be taken too much info from the Db */
+      
       var selectQuery = _ctx.PetTable
         .Select(_tr.FromPetEntityGetPets);
-      
-      var paging = selectQuery.Skip(filter.Count * (filter.Page - 1))
-        .Take(filter.Count)
-        .ToList();
 
-      return null;
+      if (filter.SearchQuery != null)
+      {
+        selectQuery.Where(p =>
+          p.Name.ToLower().Contains(filter.SearchQuery.ToLower()));
+      }
+
+      if (filter.OrderDirection != null && filter.OrderBy != null)
+      {
+        if (filter.OrderDirection.ToLower().Equals("asc"))
+        {
+          switch (filter.OrderBy.ToLower())
+          {
+            case "name":
+              selectQuery = selectQuery.OrderBy(p => p.Name);
+              break;
+            case "id":
+              selectQuery = selectQuery.OrderBy(p => p.Id);
+              break;
+          }
+        }
+        else
+        {
+          switch (filter.OrderBy.ToLower())
+          {
+            case "name":
+              selectQuery = selectQuery.OrderByDescending(p => p.Name);
+              break;
+            case "id":
+              selectQuery = selectQuery.OrderByDescending(p => p.Id);
+              break;
+          }
+        }
+      }
+      
+      
+      var query = selectQuery
+        .Skip(filter.Count * (filter.Page - 1))
+        .Take(filter.Count);
+
+      return query.ToList();
     }
 
     public Pet GetPetById(int id)

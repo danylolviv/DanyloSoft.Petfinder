@@ -47,7 +47,8 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Controllers
       }
       catch (ArgumentException e)
       {
-        return BadRequest("Something no workie or most likely no pet with id in repo");
+        Console.WriteLine(e);
+        return StatusCode(500,"Something no workie or most likely no pet with id in repo");
       }
 
       
