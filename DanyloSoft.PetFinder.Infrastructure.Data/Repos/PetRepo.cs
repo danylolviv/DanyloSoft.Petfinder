@@ -24,19 +24,14 @@ namespace DanyloSoft.PetFinder.Infrastructure.Data.Repos
 
     public List<Pet> GetPets(Filter filter)
     {
-      var myListmodel = new List<Pet>();
-      // For trolling purposes only, do not repeat at home!!!!
-      foreach (var petEntity in _ctx.PetTable
-        .Include(pT => pT.PetType)
-        .Select(entity => entity)
-        .Skip(filter.Count * (filter.Page - 1))
+      var selectQuery = _ctx.PetTable
+        .Select(_tr.FromPetEntityGetPets);
+      
+      var paging = selectQuery.Skip(filter.Count * (filter.Page - 1))
         .Take(filter.Count)
-        .ToList())
-      {
-        myListmodel.Add(_tr.FromPetEntityGetPets(petEntity));
-      }
+        .ToList();
 
-      return myListmodel;
+      return null;
     }
 
     public Pet GetPetById(int id)
