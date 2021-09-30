@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using DanyloSoft.PetFinder.Core.IServices;
 using DanyloSoft.PetFinder.Core.Models;
 using DanyloSoft.PetFinder.PetServiceRestApi.Dto.Owners;
@@ -23,15 +25,21 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Controllers
 
 
     [HttpGet]
-    public List<GetOwnerDto> GetAllOwners()
+    public ActionResult<GetAllOwnersDto> GetAllOwners()
     {
-      var listOwners = new List<GetOwnerDto>();
-      foreach (var owner in _ownerService.getAllOwners())
+      try
       {
-        listOwners.Add(_tr.GetOwner(owner));
+        return new GetAllOwnersDto()
+        {
+          Owners = _ownerService.getAllOwners()
+            .Select(o => _tr.GetOwner(o)).ToList()
+        };
       }
-
-      return listOwners;
+      catch (Exception e)
+      {
+        Console.WriteLine(e);
+        throw;
+      }
     }
 
     // [HttpGet("{id}")]

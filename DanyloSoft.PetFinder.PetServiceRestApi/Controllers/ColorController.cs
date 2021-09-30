@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using DanyloSoft.PetFinder.Core.IServices;
 using DanyloSoft.PetFinder.Core.Models;
 using DanyloSoft.PetFinder.PetServiceRestApi.Dto;
@@ -27,14 +29,21 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Controllers
     
     
     [HttpGet]
-    public List<GetColorDto> GetAllColors()
+    public ActionResult<GetAllColorDto> GetAllColors()
     {
-      var listColors = new List<GetColorDto>();
-      foreach (var color in _service.GetAllColors())
+      try
       {
-        listColors.Add(_tr.GetColorTrans(color));
+        return new GetAllColorDto()
+        {
+          Colors = _service.GetAllColors()
+            .Select(o => _tr.GetColorTrans(o)).ToList()
+        };
       }
-      return listColors;
+      catch (Exception e)
+      {
+        Console.WriteLine(e);
+        throw;
+      }
     }
     
 

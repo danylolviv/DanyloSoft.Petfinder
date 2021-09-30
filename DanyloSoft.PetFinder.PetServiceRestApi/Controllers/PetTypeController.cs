@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using DanyloSoft.PetFinder.Core.IServices;
 using DanyloSoft.PetFinder.Core.Models;
 using DanyloSoft.PetFinder.PetServiceRestApi.Dto.PetTypes;
@@ -21,14 +23,21 @@ namespace DanyloSoft.PetFinder.PetServiceRestApi.Controllers
     }
 
     [HttpGet]
-    public ActionResult<List<GetPetTypeDto>> GetAllPetTypes()
+    public ActionResult<GetAllPetTypesDto> GetAllPetTypes()
     {
-      var listPetTypes = new List<GetPetTypeDto>();
-      foreach (var petType in _petTypeService.GetListPetTypes())
+      try
       {
-        listPetTypes.Add(_tr.GetPetType(petType));
+        return Ok(new GetAllPetTypesDto()
+        {
+          PetTypes = _petTypeService.GetListPetTypes()
+            .Select(pT => _tr.GetPetType(pT)).ToList()
+        });
       }
-      return listPetTypes;
+      catch (Exception e)
+      {
+        Console.WriteLine(e);
+        throw;
+      }
     }
 
     // [HttpGet("{query}")]
